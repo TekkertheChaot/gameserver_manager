@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ config('app.name', 'Laravelo') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -40,6 +40,12 @@
                 top: 18px;
             }
 
+            .top-left {
+                position: absolute;
+                left: 10px;
+                top: 18px;
+            }
+
             .content {
                 text-align: center;
             }
@@ -66,7 +72,7 @@
     <body>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
-                <div class="top-right links">
+                <div class="top-left links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
@@ -81,17 +87,25 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                {{ config('app.name', 'Laravelo') }}
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                @if(Route::has('login'))
+                @auth
+                    <a href="{{ url('/home') }}">Home</a>
+                @else
+                    <a href="{{ route('login') }}">Login</a>
+
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}">Register</a>
+                    @endif
+                @endauth
+                @endif
+
+                @foreach ($links as $link)
+    <a href="{{ $link->url }}">{{ $link->title }}</a>
+@endforeach
                 </div>
             </div>
         </div>
