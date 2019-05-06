@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $links = \App\Link::all();
+        return view('home', ['links' => $links]);
     }
 }

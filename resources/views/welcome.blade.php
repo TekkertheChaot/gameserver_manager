@@ -104,8 +104,8 @@
                 @endif
 
                 @foreach ($links as $link)
-    <a href="{{ $link->url }}">{{ $link->title }}</a>
-@endforeach
+                        <a href="{{ $link->url }}">{{ $link->title }}</a>
+                @endforeach
                 </div>
             </div>
         </div>

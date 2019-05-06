@@ -15,6 +15,10 @@
                     @endif
 
                     You are logged in!
+                    
+            @foreach ($links as $link)
+                        <a href="{{ $link->url }}">{{ $link->title }}</a>
+            @endforeach
                 </div>
             </div>
         </div>
