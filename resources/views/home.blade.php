@@ -16,9 +16,21 @@
 
                     You are logged in!
                     
-            @foreach ($links as $link)
+                    @foreach ($links as $link)
                         <a href="{{ $link->url }}">{{ $link->title }}</a>
-            @endforeach
+                    @endforeach
+                </div>
+                
+            </div>
+            <div></div>
+            <div class="card">
+                <div class="card-header">A new Card for you</div>
+
+                <div class="card-body">
+                    This is a new card for you to experiment with.
+                </div>
+                <div class="card-footer">
+                Und das hier ist ein Footer.
                 </div>
             </div>
         </div>

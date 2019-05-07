@@ -11,6 +11,6 @@ class LinksTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Link::class, 5)->create();
+        factory(App\Link::class, 10)->create();
     }
 }

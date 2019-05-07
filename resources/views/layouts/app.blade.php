@@ -19,7 +19,13 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+@guest
+<body style="border-top-style: solid; border-top-width: 10px; border-color: gray;">
+@elseif( Auth::user()->name  === 'asdf')
+<body style="border-top-style: solid; border-top-width: 10px; border-color: red;">
+@else
+<body style="border-top-style: solid; border-top-width: 10px; border-color: blue;">
+@endif
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
@@ -59,6 +65,9 @@
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        {{ __('Home') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

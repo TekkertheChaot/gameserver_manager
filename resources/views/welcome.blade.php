@@ -87,7 +87,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                {{ config('app.name', 'Laravelo') }}
+                {{ config('app.name', 'LaravelBasedApp') }}
                 </div>
 
                 <div class="links">
@@ -102,10 +102,6 @@
                     @endif
                 @endauth
                 @endif
-
-                @foreach ($links as $link)
-                        <a href="{{ $link->url }}">{{ $link->title }}</a>
-                @endforeach
                 </div>
             </div>
         </div>
