@@ -102,6 +102,8 @@
                     @endif
                 @endauth
                 @endif
+                <a href="{{ url('/about') }}">About this site</a>
+                <a href="{{ url('/pictest') }}">Testsite with blurred Background (PoC)</a>
                 </div>
             </div>
         </div>

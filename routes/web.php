@@ -25,3 +25,13 @@ Route::get('/', function () {
 
     return view('welcome', ['links' => $links]);
 });
+Route::get('/about', function () {
+    $links = \App\Link::all();
+
+    return view('about', ['links' => $links]);
+});
+Route::get('/pictest', function () {
+    $links = \App\Link::all();
+
+    return view('pictureTestPage', ['links' => $links]);
+});
