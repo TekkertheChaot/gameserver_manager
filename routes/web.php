@@ -28,7 +28,7 @@ Route::get('/', function () {
 Route::get('/about', function () {
     $links = \App\Link::all();
 
-    return view('about', ['links' => $links]);
+    return view('about');
 });
 Route::get('/pictest', function () {
     $links = \App\Link::all();
