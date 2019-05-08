@@ -1,5 +1,7 @@
 <?php 
-include('Net/SSH2.php');
+
+use phpseclib\Net\SSH2;
+
 
 class TestClass{
     public static function sayHelloName($name){
@@ -7,13 +9,14 @@ class TestClass{
     }
 
     public static function doSSH(){
-        $ssh = new Net_SSH2('192.168.56.101');
+        $ssh = new SSH2('192.168.56.101');
         if (!$ssh->login('root', 'root')) {
             exit('Login Failed');
         }
 
-        echo $ssh->exec('pwd');
-        echo $ssh->exec('ls -la');
+        $returned = $ssh->exec('ls -la');
+        var_dump($returned);
+        die();
     }
 }
 ?>
