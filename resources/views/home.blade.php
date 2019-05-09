@@ -25,7 +25,7 @@
     left: 0px;
     overflow-x: hidden;
     max-width: 400px;
-    margin-left: 10px;
+    margin-left: 15px;
     display: inline-block;
     float: left;
 }
