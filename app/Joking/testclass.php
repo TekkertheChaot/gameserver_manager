@@ -14,9 +14,11 @@ class TestClass{
             exit('Login Failed');
         }
 
-        $returned = $ssh->exec('ls -la');
-        var_dump($returned);
-        die();
+        echo(TestClass::getSSHResultWithLineBreaks($ssh->exec('ls -la')));
+    }
+
+    public static function getSSHResultWithLineBreaks(String $sshResult){
+        return str_replace("\n", "<br>", $sshResult);
     }
 }
 ?>
