@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\AjaxController' => $baseDir . '/app/Http/Controllers/AjaxController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -1038,6 +1039,7 @@ return array(
     'Illuminate\\Database\\Schema\\PostgresBuilder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/PostgresBuilder.php',
     'Illuminate\\Database\\Schema\\SQLiteBuilder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/SQLiteBuilder.php',
     'Illuminate\\Database\\Schema\\SqlServerBuilder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/SqlServerBuilder.php',
+    'Illuminate\\Database\\Schema\\Types\\TinyInteger' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/Types/TinyInteger.php',
     'Illuminate\\Database\\Seeder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Seeder.php',
     'Illuminate\\Database\\SqlServerConnection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/SqlServerConnection.php',
     'Illuminate\\Encryption\\Encrypter' => $vendorDir . '/laravel/framework/src/Illuminate/Encryption/Encrypter.php',

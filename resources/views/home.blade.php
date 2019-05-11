@@ -59,7 +59,11 @@
 }
 
 #btn-addCard {
-    font-size: calc(.9rem - 4px);    
+    font-size: calc(.9rem - 4px);
+}
+
+#sshfield {
+    width: 50%;
 }
 </style>
 @endsection
@@ -69,14 +73,12 @@
 <div id="sb" class="sidebar">
     <div id="sbcard" class="card">
         <div id="sbcardheader" class="card-header sidebar-card-header">
-            Sidebar
-            <button id="btn-addCard" onCLick="addCardToSidebar()">add Card</button></div>
+            Sidebar</div>
         <div id="sbcardbody" class="card-body sidebar-card-body">
             <div class="card">
                 <div class="card-header">Dashboard</div>
                 <div class="card-body">
                     You are logged in!<br>
-                    <button style="font-size: 12px;" onCLick="addTimeToStatus()">add time</button>
                 </div>
             </div>
         </div>
@@ -102,13 +104,15 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header">Links</div>
-                        <div class="card-body">
-                            @foreach ($links as $link)
-                            <a href="{{ $link->url }}">{{ $link->title }}</a><br>
-                            @endforeach
+                        <div class="card-header">Console</div>
+                        <div id="console-output" class="card-body">
+                            
                         </div>
-                        <div class="card-footer">Und das hier ist ein Footer.</div>
+                        <div class="card-footer">
+                        <input id="sshfield" type="text" name="fname">
+                        <button onCLick="doSSHtest()">Execute SSH
+                        </button>
+                        </div>
                     </div>
                     <div class="card">
                         <div class="card-header">Links</div>
@@ -167,6 +171,26 @@
             console.log("cardboard could not be found");
             alert("failed, cardboard not found")
         }
+    }
+
+    function doSSHtest() {
+        var data = document.getElementById('sshfield').value;
+        console.log("Button pressed");
+        var params = typeof data == 'string' ? data : Object.keys(data).map(
+	            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+	        ).join('&');
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("console-output").innerHTML = this.responseText;
+                console.log(this.responseText);
+            } else {
+                console.log(this.status);
+            }
+        };
+        xhttp.open("POST", "api/ssh/APItest");
+	    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhttp.send(params);
     }
     </script>
 </div>

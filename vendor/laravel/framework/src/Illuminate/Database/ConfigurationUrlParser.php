@@ -126,7 +126,7 @@ class ConfigurationUrlParser
      * @param  string  $url
      * @return array
      */
-    protected function parseUrl($url)
+    protected function parseUrl($url): array
     {
         $url = preg_replace('#^(sqlite3?):///#', '$1://null/', $url);
 

@@ -123,8 +123,7 @@ class PhpRedisConnector
             array_values($servers),
             $options['timeout'] ?? 0,
             $options['read_timeout'] ?? 0,
-            isset($options['persistent']) && $options['persistent'],
-            $options['password'] ?? null
+            isset($options['persistent']) && $options['persistent']
         );
     }
 }
