@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Group::class, function (Faker $faker) {
     return [
-        'name' => 'group:'.$faker->word
+        'group_name' => 'group:'.$faker->word
     ];
 });

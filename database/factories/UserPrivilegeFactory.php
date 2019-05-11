@@ -2,11 +2,10 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\User_Group;
+use App\UserPrivilege;
 use Faker\Generator as Faker;
 
-$factory->define(User_Group::class, function (Faker $faker) {
+$factory->define(UserPrivilege::class, function (Faker $faker) {
     return [
-        //
     ];
 });

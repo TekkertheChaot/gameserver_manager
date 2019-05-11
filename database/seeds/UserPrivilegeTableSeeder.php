@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PrivilegeTableSeeder extends Seeder
+class UserPrivilegeTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class PrivilegeTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Privilege::class, 5)->create();
+        factory(App\UserPrivilege::class, 5)->create();
     }
 }

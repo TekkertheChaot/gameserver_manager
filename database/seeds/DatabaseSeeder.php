@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
          $this->call(GameTableSeeder::class);
          $this->call(GroupTableSeeder::class);
          $this->call(LGSMHostTableSeeder::class);
-         $this->call(PrivilegeTableSeeder::class);
+         // $this->call(UserPrivilegeTableSeeder::class);
+         // $this->call(GroupPrivilegeTableSeeder::class);
          $this->call(ServerCredentialsTableSeeder::class);
          $this->call(ServerTableSeeder::class);
     }

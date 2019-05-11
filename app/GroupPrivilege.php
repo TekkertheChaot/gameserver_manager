@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LGSMHost extends Model
+class GroupPrivilege extends Model
 {
-    protected $table = 'lgsm_hosts';
+    //
 }

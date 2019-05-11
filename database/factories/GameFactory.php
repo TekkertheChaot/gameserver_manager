@@ -7,8 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Game::class, function (Faker $faker) {
     return [
-        'gamename' => $faker->word,
-        'gamelabel' => $faker->word,
-        'supportrcon' => $faker->randomElement($array = array (0,1))
+        'game_name' => $faker->word,
+        'game_label' => $faker->word,
+        'support_rcon' => $faker->randomElement($array = array (0,1))
     ];
 });

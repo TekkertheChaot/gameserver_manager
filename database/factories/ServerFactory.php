@@ -7,10 +7,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Server::class, function (Faker $faker) {
     return [
-        'name' => 'name:'.$faker->word,
-        'gameid' => $faker->randomElement($array = array(1,2,3,4,5)),
-        'label' => $faker->word,
-        'hostid' => $faker->randomELement($array = array(1,2)),
-        'credid' => $faker->randomELement($array = array(1,2,3,4,5)),        
+        'server_name' => 'name:'.$faker->word,
+        'game_id' => $faker->randomElement($array = array(1,2,3,4,5)),
+        'server_label' => $faker->word,
+        'host_id' => $faker->randomELement($array = array(1,2)),
+        'credential_id' => $faker->randomELement($array = array(1,2,3,4,5)),        
     ];
 });

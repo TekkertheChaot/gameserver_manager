@@ -2,11 +2,10 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\LGSMHost;
+use App\GroupPrivilege;
 use Faker\Generator as Faker;
 
-$factory->define(LGSMHost::class, function (Faker $faker) {
+$factory->define(GroupPrivilege::class, function (Faker $faker) {
     return [
-        'ip_adress' => $faker->ipv4
     ];
 });

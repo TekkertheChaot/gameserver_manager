@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGamesTable extends Migration
+class CreateGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateGamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('games', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('gamename');
-            $table->string('gamelabel');
-            $table->boolean('supportrcon');
+        Schema::create('Groups', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->increments('group_id');
+            $table->string('group_name');
             $table->timestamps();
         });
     }
@@ -29,6 +28,7 @@ class CreateGamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('games');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('Groups');
     }
 }

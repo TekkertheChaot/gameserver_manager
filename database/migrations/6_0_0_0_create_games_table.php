@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLgsmhostsTable extends Migration
+class CreateGamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateLgsmhostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lgsmhosts', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('ipadress');
+        Schema::create('Games', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->increments('game_id');
+            $table->string('game_name');
+            $table->string('game_label');
+            $table->boolean('support_rcon');
             $table->timestamps();
         });
     }
@@ -27,6 +30,7 @@ class CreateLgsmhostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lgsmhosts');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('Games');
     }
 }

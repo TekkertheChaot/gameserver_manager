@@ -13,9 +13,11 @@ class CreateServercredentialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('servercredentials', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('hostid');
+        Schema::create('Server_Credentials', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->increments('credential_id');
+            $table->integer('host_id')->unsigned();
+            $table->foreign('host_id')->references('host_id')->on('lgsm_hosts')->onDelete('cascade');
             $table->string('user');
             $table->string('password');
             $table->timestamps();
@@ -29,6 +31,7 @@ class CreateServercredentialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servercredentials');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('Server_Credentials');
     }
 }
