@@ -20,7 +20,6 @@ class CreateServercredentialsTable extends Migration
             $table->foreign('host_id')->references('host_id')->on('lgsm_hosts')->onDelete('cascade');
             $table->string('user');
             $table->string('password');
-            $table->timestamps();
         });
     }
 

@@ -4,7 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ServerCredentials extends Model
+class AdminGroup extends Model
 {
+    //
     public $timestamps = false;
+    protected $table = 'groups';
 }

@@ -17,7 +17,6 @@ class CreateLgsmhostsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('host_id');
             $table->string('ip_adress');
-            $table->timestamps();
         });
     }
 

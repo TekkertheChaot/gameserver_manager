@@ -24,7 +24,7 @@
 
 @guest
 <body style="border-top-style: solid; border-top-width: 10px; border-color: gray;">
-@elseif( Auth::user()->name === 'asdf')
+@elseif( isCurrentUserAdmin())
 <body style="border-top-style: solid; border-top-width: 10px; border-color: red;">
 @else
 <body style="border-top-style: solid; border-top-width: 10px; border-color: blue;">
@@ -67,13 +67,19 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('home') }}">
+                                            {{ __('Home') }}
+                                        </a>
+                                        @if(isCurrentUserAdmin())
+                                        <a class="dropdown-item" href="{{ route('manage') }}">
+                                            {{ __('Management') }}
+                                        </a>
+                                        @endif
                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('home') }}">
-                                            {{ __('Home') }}
-                                        </a>
+
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             style="display: none;">
@@ -92,5 +98,27 @@
                 </main>
             </div>
         </body>
+        <?php
+        function isCurrentUserAdmin(){
+            $step = 0;
+            $currentUser = \App\User::where('username', Auth::user()->username)->get();
+            if($currentUser[0] != null){
+                $step = 1;
+                $adminGroups = \App\Group::where('group_name', 'admins')->get();
+                if($adminGroups[0] != null){
+                    $step = 3;
+                    $current_user_id = $currentUser[0]->user_id;
+                    $users_group_ids = \App\User_Group::where('user_id', $current_user_id)->get();
+                    foreach($users_group_ids as $user_group_id){
+                       if($user_group_id->group_id == $adminGroups[0]->group_id){
+                           $step = 3;
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        } 
+        ?>
 
 </html>

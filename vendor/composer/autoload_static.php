@@ -366,6 +366,10 @@ class ComposerStaticInit989b1b07f36d2c038d3fd5936e9e3aac
     );
 
     public static $classMap = array (
+        'AdminGroupTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AdminGroupTableSeeder.php',
+        'AdminUserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AdminUserTableSeeder.php',
+        'App\\AdminGroup' => __DIR__ . '/../..' . '/app/AdminGroup.php',
+        'App\\AdminUser' => __DIR__ . '/../..' . '/app/AdminUser.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Game' => __DIR__ . '/../..' . '/app/Game.php',
@@ -379,6 +383,7 @@ class ComposerStaticInit989b1b07f36d2c038d3fd5936e9e3aac
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\ManagementController' => __DIR__ . '/../..' . '/app/Http/Controllers/ManagementController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -3840,6 +3845,7 @@ class ComposerStaticInit989b1b07f36d2c038d3fd5936e9e3aac
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+        'UserGroupTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UserGroupTableSeeder.php',
         'UserPrivilegeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UserPrivilegeTableSeeder.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',

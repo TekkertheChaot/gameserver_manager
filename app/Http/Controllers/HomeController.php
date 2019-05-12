@@ -24,6 +24,10 @@ class HomeController extends Controller
     public function index()
     {
         $links = \App\Link::all();
-        return view('home', ['links' => $links]);
+        $users = \App\User::all();
+        $groups = \App\Group::all();
+        $usergroups = \App\Group::all();
+        $servers = \App\Server::all();
+        return view('home', ['links' => $links, 'users' => $users, 'usergroups' => $usergroups, 'groups' => $groups, 'servers' => $servers]);
     }
 }

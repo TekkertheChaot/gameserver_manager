@@ -16,7 +16,7 @@ class CreateUserPrivilegesTable extends Migration
         Schema::create('User_Privileges', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->integer('user_id')->unique()->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->Integer('server_id')->unsigned();
             $table->foreign('server_id')->references('server_id')->on('servers')->onDelete('cascade');
             $table->boolean('lgsm_start');
@@ -25,7 +25,6 @@ class CreateUserPrivilegesTable extends Migration
             $table->boolean('lgsm_update');
             $table->boolean('lgsm_status');
             $table->boolean('view_in_dash');
-            $table->timestamps();
         });
     }
 

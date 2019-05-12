@@ -35,3 +35,8 @@ Route::get('/pictest', function () {
 
     return view('pictureTestPage', ['links' => $links]);
 });
+Route::get('/collapseTest', function () {
+
+    return view('collapsTest');
+});
+Route::get('manage', 'ManagementController@index')->name('manage');

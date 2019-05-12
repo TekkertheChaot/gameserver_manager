@@ -25,7 +25,6 @@ class CreateGroupPrivilegesTable extends Migration
             $table->boolean('lgsm_update');
             $table->boolean('lgsm_status');
             $table->boolean('view_in_dash');
-            $table->timestamps();
         });
     }
 

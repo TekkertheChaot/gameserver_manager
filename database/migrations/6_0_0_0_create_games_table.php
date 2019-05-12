@@ -19,7 +19,6 @@ class CreateGamesTable extends Migration
             $table->string('game_name');
             $table->string('game_label');
             $table->boolean('support_rcon');
-            $table->timestamps();
         });
     }
 

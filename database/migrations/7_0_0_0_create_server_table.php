@@ -24,7 +24,6 @@ class CreateServerTable extends Migration
             $table->foreign('host_id')->references('host_id')->on('lgsm_hosts')->onDelete('cascade');
             $table->integer('credential_id')->unsigned();
             $table->foreign('credential_id')->references('credential_id')->on('server_credentials')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

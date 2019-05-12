@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class LGSMHost extends Model
 {
     protected $table = 'lgsm_hosts';
+    public $timestamps = false;
 }

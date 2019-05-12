@@ -16,8 +16,7 @@ class CreateGroupsTable extends Migration
         Schema::create('Groups', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('group_id');
-            $table->string('group_name');
-            $table->timestamps();
+            $table->string('group_name')->unique();
         });
     }
 
