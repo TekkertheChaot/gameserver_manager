@@ -6,6 +6,7 @@
     var cardboardModalID = 'myModal';
     var cardboardID = 'cardboard-body';
     var fadeLength = 200;
+    var currentServerID;
 
     function openAddUserDialog(event) {
         openDialog('Add a user');
@@ -146,7 +147,8 @@ function onClickServer(event){
 }
 
 function getServerIDFromServerCard(event){
-    return event.originalTarget.offsetParent.id.replace('server_','');
+
+    return currentServerID = event.originalTarget.offsetParent.id.replace('server_','');
 }
 
 function isAddUserDataValid(){
@@ -181,4 +183,21 @@ function doSSHtest() {
     xhttp.open("POST", "api/ssh/APItest");
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.send(params);
+}
+
+function onClickRunSSH(event){
+    var cmd = document.getElementById('cmd').value;
+    data = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cmd: cmd})
+      };
+    fetch('api/dashboard/ssh/'+currentServerID+"/"+cmd, data).then(function(response) {
+        response.text().then(function(text){
+            document.getElementById('console-body').innerHTML = '<pre>'+text+'</pre>' ;
+        })
+    })
 }

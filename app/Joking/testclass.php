@@ -7,13 +7,19 @@ class TestClass{
         echo("hello ".$name);
     }
 
-    public static function doSSH(){
+    public static function doSSH(String $cmd){
+
         $ssh = new SSH2('192.168.56.101');
         if (!$ssh->login('csgo-mg', 'csgo-mg')) {
             exit('Login Failed');
         }
-        $result = $ssh->exec('ls -la');
+        if($cmd != null){
+            $result = $ssh->exec($cmd);
+        } else {
+            $result = $ssh->exec('ls -la');
+        }
         //echo(TestClass::getSSHResultWithLineBreaks($result));
+
         return $result;
     }
 

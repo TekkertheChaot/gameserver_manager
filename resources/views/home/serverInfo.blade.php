@@ -34,3 +34,13 @@ td {
     </table>
     </div>
 </div>
+
+<div id="console-card" class="card">
+    <div class="card-header">Console</div>
+    <div id="console-body" class="card-body">
+    </div>
+    <div id="console-footer" class="card-footer">
+    <input id="cmd" type="text">
+    <button id="doSSH" onClick="onClickRunSSH(event)">send SSH</button>
+    </div>
+</div>

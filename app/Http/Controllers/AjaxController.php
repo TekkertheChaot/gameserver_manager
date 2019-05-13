@@ -50,5 +50,10 @@ class AjaxController extends Controller
     {
         return \View::make('home/serverInfo', ['id' => $id])->render();
     }
+    public function runSSHCmd(String $serverId, String $cmd, Request $request)
+    {
+        $retrievedCmd = $request->request->get('cmd');
+        return \TestClass::doSSH($retrievedCmd);
+    }
 
 }

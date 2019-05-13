@@ -55,7 +55,6 @@
     overflow: hidden;
     height: 100%;
     min-width: 200px;
-    position: sticky;
     z-index: 1;
     top: 0px;
     left: 0px;
