@@ -24,3 +24,4 @@ Route::get('/management/hosts', 'AjaxController@getHostsPage');
 Route::get('/management/creds', 'AjaxController@getCredsPage');
 Route::get('/management/privs', 'AjaxController@getPrivsPage');
 Route::get('/management/users/add', 'AjaxController@getAddUserDialog');
+Route::get('/dashboard/server/{id}', 'AjaxController@getServerInformation');

@@ -38,6 +38,9 @@
             setLastPressed(event);
         }
     }
+    function onCLickManageMenuItem(event, pageName){
+        buildMenuPage(event, pageName);
+    }
 
     function setLastPressed(event) {
         if (lastEvent != null) {
@@ -125,6 +128,27 @@ function hello(){
     console.log("heeeeellllllllllooooooooooooooooooooooooooo");
 }
 
+function collapseCollapsible(event) {
+    event.originalTarget.classList.toggle('active');
+    var content = event.originalTarget.nextElementSibling;
+    content.classList.toggle('closedCollapsible');
+    if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+    } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+    }
+}
+
+function onClickServer(event){
+    collapseCollapsible(event);
+    var serverID = getServerIDFromServerCard(event);
+    fetchSiteIntoElement(cardboardModalID, cardboardID, 'api/dashboard/server/'+serverID);
+}
+
+function getServerIDFromServerCard(event){
+    return event.originalTarget.offsetParent.id.replace('server_','');
+}
+
 function isAddUserDataValid(){
     var username_input = document.getElementById('username').value;
     var email_input = document.getElementById('email').value;
@@ -134,6 +158,27 @@ function isAddUserDataValid(){
     if(password_input == passwordConfirm_input){
          
     }
+}
+// TODO
 
-
+function doSSHtest() {
+    var data = document.getElementById('sshfield').value;
+    console.log("Button pressed");
+    var params = typeof data == 'string' ? data : Object.keys(data).map(
+        function(k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+        }
+    ).join('&');
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("console-output").innerHTML = this.responseText;
+            console.log(this.responseText);
+        } else {
+            console.log(this.status);
+        }
+    };
+    xhttp.open("POST", "api/ssh/APItest");
+    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.send(params);
 }

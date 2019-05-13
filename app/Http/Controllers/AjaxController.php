@@ -46,4 +46,9 @@ class AjaxController extends Controller
     {
         return \View::make('management/privileges')->render();
     }
+    public function getServerInformation(String $id)
+    {
+        return \View::make('home/serverInfo', ['id' => $id])->render();
+    }
+
 }

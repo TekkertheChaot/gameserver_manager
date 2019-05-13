@@ -231,13 +231,13 @@
         <div id="sbcardheader" class="card-header sidebar-card-header">
             Sidebar</div>
         <div id="sbcardbody" class="sidebar-card-body">
-            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'users')">Users</div>
-            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'groups')">Groups</div>
-            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'servers')">Servers</div>
-            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'games')">Games</div>
-            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'hosts')">Hosts</div>
-            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'creds')">Log In Information</div>
-            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'privs')">Privileges</div>
+            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'users')">Users</div>
+            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'groups')">Groups</div>
+            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'servers')">Servers</div>
+            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'games')">Games</div>
+            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'hosts')">Hosts</div>
+            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'creds')">Log In Information</div>
+            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'privs')">Privileges</div>
         </div>
     </div>
 </div>
