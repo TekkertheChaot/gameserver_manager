@@ -29,12 +29,7 @@ class ManagementController extends Controller
         if(!$this->isUserAllowedToVisitPage()){
             return redirect('home');
         } else {
-            $links = \App\Link::all();
-            $users = \App\User::all();
-            $groups = \App\Group::all();
-            $usergroups = \App\Group::all();
-            $servers = \App\Server::all();
-            return view('management', ['links' => $links, 'users' => $users, 'usergroups' => $usergroups, 'groups' => $groups, 'servers' => $servers]);
+            return view('management');
         }
     }
 

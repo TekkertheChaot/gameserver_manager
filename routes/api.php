@@ -16,4 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/ssh/APItest', 'AjaxController@testcall');
+Route::get('/management/users', 'AjaxController@getUsersPage');
+Route::get('/management/groups', 'AjaxController@getGroupsPage');
+Route::get('/management/servers', 'AjaxController@getServersPage');
+Route::get('/management/games', 'AjaxController@getGamesPage');
+Route::get('/management/hosts', 'AjaxController@getHostsPage');
+Route::get('/management/creds', 'AjaxController@getCredsPage');
+Route::get('/management/privs', 'AjaxController@getPrivsPage');
+Route::get('/management/users/add', 'AjaxController@getAddUserDialog');

@@ -23,12 +23,12 @@
 }
 
 .sidebar-card-entry:hover {
-    background-color: rgba(0,0,0,.15);
+    background-color: rgba(0, 0, 0, .15);
     cursor: pointer;
 }
 
 .sidebar-card-entry:active {
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0, 0, 0, .5);
     cursor: pointer;
 }
 
@@ -59,7 +59,6 @@
     overflow: hidden;
     height: 100%;
     min-width: 200px;
-    position: sticky;
     z-index: 1;
     top: 0px;
     left: 0px;
@@ -97,7 +96,7 @@
 }
 
 .selectedMenu {
-    background-color: rgba(0,0,0,0.23);
+    background-color: rgba(0, 0, 0, 0.23);
 }
 
 #cardboard {
@@ -111,25 +110,134 @@
 #cardboard-body {
     height: 85vh;
     overflow: auto;
+    transition: opacity .2s ease-out;
 }
 
 #sbcard {
     margin-bottom: 0px;
 }
+
+.modal {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Modal Content */
+.modal-c {
+    padding: 20px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    margin: 6px;
+    border: 6px solid #dfc;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #0ba3f4 transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
 </style>
 @endsection
 
 @section('content')
-
+<!-- The Modal -->
+<div id="siteModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-c">
+        <div class="close" onClick="closePopup(event)">&times;</div>
+        <div class="popup-card card">
+            <div id="popupModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-c">
+                    <div class="ld ld-spin-fast ld-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div id="popupDialogHeader" class="card-header">Header
+            </div>
+            <div id="popupDialog" class="card-body">Body</div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
 <div id="sb" class="sidebar">
     <div id="sbcard" class="card">
         <div id="sbcardheader" class="card-header sidebar-card-header">
             Sidebar</div>
         <div id="sbcardbody" class="sidebar-card-body">
-            <div class="sidebar-card-entry" onClick="buildUserPage(event)">Users</div>
-            <div class="sidebar-card-entry" onClick="buildGroupsPage(event)">Groups</div>
-            <div class="sidebar-card-entry" onClick="buildServersPage(event)">Servers</div>
-            <div class="sidebar-card-entry" onClick="buildGamesPage(event)">Games</div>
+            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'users')">Users</div>
+            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'groups')">Groups</div>
+            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'servers')">Servers</div>
+            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'games')">Games</div>
+            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'hosts')">Hosts</div>
+            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'creds')">Log In Information</div>
+            <div class="sidebar-card-entry" onClick="buildMenuPage(event,'privs')">Privileges</div>
         </div>
     </div>
 </div>
@@ -137,6 +245,20 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div id="cardboard" class="card">
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-c">
+                        <div class="ld ld-spin-fast ld-spinner">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+
+                </div>
                 <div id="cardboard-header" class="card-header">Dashboard</div>
                 <div id="cardboard-body" class="card-body">
 
@@ -146,53 +268,6 @@
         </div>
     </div>
     <script>
-    var lastEvent;
-    function buildUserPage(event) {
-        setLastPressed(event);
-        loadSiteIntoCardboard('./../resources/views/management/users.php');
-    }
-    function buildGroupsPage(event) {
-        setLastPressed(event);
-        loadSiteIntoCardboard('./../resources/views/management/groups.php');
-    }
-    function buildServersPage(event) {
-        setLastPressed(event);
-        loadSiteIntoCardboard('./../resources/views/management/servers.php');
-    }
-    function buildGamesPage(event) {
-        setLastPressed(event);
-        loadSiteIntoCardboard('./../resources/views/management/games.php');
-    }
-
-    function setLastPressed(event){
-        if(lastEvent != null){
-            console.log('last event exists');
-            lastEvent.originalTarget.classList.toggle('selectedMenu');
-        }
-        lastEvent = event;
-        event.originalTarget.classList.toggle('selectedMenu');
-    }
-
-    function getExampleCard() {
-        return "<div class=\"card\"><div class=\"card-header\">ExampleHeader</div><div class=\"card-body\">This is a Example card</div><div class=\"card-footer\">And this is a footer</div></div>";
-    }
-
-    function hello() {
-        console.log("Clicked on me");
-    }
-
-    function loadSiteIntoCardboard(url) {
-        console.log("Button pressed");
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("cardboard-body").innerHTML = this.responseText;
-            } else {
-            }
-        };
-        xhttp.open("GET", url, true);
-        xhttp.send();
-    }
     </script>
 </div>
 @endsection

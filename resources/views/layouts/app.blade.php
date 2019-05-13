@@ -12,23 +12,27 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/manage.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/loading.css') }}" rel="stylesheet">
     @yield('customStyle')
 </head>
 
 @guest
+
 <body style="border-top-style: solid; border-top-width: 10px; border-color: gray;">
-@elseif( isCurrentUserAdmin())
-<body style="border-top-style: solid; border-top-width: 10px; border-color: red;">
-@else
-<body style="border-top-style: solid; border-top-width: 10px; border-color: blue;">
-@endif
+    @elseif( isCurrentUserAdmin())
+
+    <body style="border-top-style: solid; border-top-width: 10px; border-color: red;">
+        @else
+
+        <body style="border-top-style: solid; border-top-width: 10px; border-color: blue;">
+            @endif
             <div id="app">
                 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
                     <div class="container">
@@ -92,7 +96,6 @@
                         </div>
                     </div>
                 </nav>
-
                 <main class="py-4">
                     @yield('content')
                 </main>
