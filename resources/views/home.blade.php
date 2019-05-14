@@ -272,6 +272,9 @@
             Sidebar</div>
         <div id="sbcardbody" class="card-body sidebar-card-body">
             @foreach ($servers as $server)
+            @foreach ($permissions as $permission)
+            @if($server->server_id == $permission['server_id'])
+            @if($permission['view_in_dash'] != 0 )
             <div id="server_{{$server->server_id}}" class="card">
                 <div class="card-header server-card-header collapsible" onClick="onClickServer(event)">
                     {{$server->server_name}}</div>
@@ -282,18 +285,12 @@
                     <?php 
                         $gameslist = \App\Game::where('game_id', $server->game_id)->get();
                         echo($gameslist[0]->game_name);
-                    ?>
-                </div>
-                <div class="card-footer server-card-footer">
-                    <img class="server-icon start-server-icon icon-enabled"
-                        src="./../resources/pics/gs_control/start-min.png" width="16" height="16" alt="Start Server">
-                    <img class="server-icon start-server-icon icon-disabled"
-                        src="./../resources/pics/gs_control/restart-min.png" width="16" height="16"
-                        alt="Restart Server">
-                    <img class="server-icon start-server-icon icon-disabled"
-                        src="./../resources/pics/gs_control/stop-min.png" width="16" height="16" alt="Stop Server">
+                     ?>
                 </div>
             </div>
+            @endif
+            @endif
+            @endforeach
             @endforeach
         </div>
     </div>
@@ -318,13 +315,14 @@
                 </div>
                 <div id="cardboard-header" class="card-header">Dashboard</div>
                 <div id="cardboard-body" class="card-body">
+                    Welcome {{$currentUser->username}}
                 </div>
             </div>
 
         </div>
     </div>
     <script>
-    
+
     </script>
 </div>
 @endsection
