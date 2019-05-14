@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -28,156 +28,156 @@ use SebastianBergmann\Timer\Timer;
 use Throwable;
 
 /**
- * A TestResult collects the results of executing a test case.
+ * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-class TestResult implements Countable
+final class TestResult implements Countable
 {
     /**
      * @var array
      */
-    protected $passed = [];
+    private $passed = [];
 
     /**
      * @var TestFailure[]
      */
-    protected $errors = [];
+    private $errors = [];
 
     /**
      * @var TestFailure[]
      */
-    protected $failures = [];
+    private $failures = [];
 
     /**
      * @var TestFailure[]
      */
-    protected $warnings = [];
+    private $warnings = [];
 
     /**
      * @var TestFailure[]
      */
-    protected $notImplemented = [];
+    private $notImplemented = [];
 
     /**
      * @var TestFailure[]
      */
-    protected $risky = [];
+    private $risky = [];
 
     /**
      * @var TestFailure[]
      */
-    protected $skipped = [];
+    private $skipped = [];
 
     /**
      * @var TestListener[]
      */
-    protected $listeners = [];
+    private $listeners = [];
 
     /**
      * @var int
      */
-    protected $runTests = 0;
+    private $runTests = 0;
 
     /**
      * @var float
      */
-    protected $time = 0;
+    private $time = 0;
 
     /**
      * @var TestSuite
      */
-    protected $topTestSuite;
+    private $topTestSuite;
 
     /**
      * Code Coverage information.
      *
      * @var CodeCoverage
      */
-    protected $codeCoverage;
+    private $codeCoverage;
 
     /**
      * @var bool
      */
-    protected $convertErrorsToExceptions = true;
+    private $convertErrorsToExceptions = true;
 
     /**
      * @var bool
      */
-    protected $stop = false;
+    private $stop = false;
 
     /**
      * @var bool
      */
-    protected $stopOnError = false;
+    private $stopOnError = false;
 
     /**
      * @var bool
      */
-    protected $stopOnFailure = false;
+    private $stopOnFailure = false;
 
     /**
      * @var bool
      */
-    protected $stopOnWarning = false;
+    private $stopOnWarning = false;
 
     /**
      * @var bool
      */
-    protected $beStrictAboutTestsThatDoNotTestAnything = true;
+    private $beStrictAboutTestsThatDoNotTestAnything = true;
 
     /**
      * @var bool
      */
-    protected $beStrictAboutOutputDuringTests = false;
+    private $beStrictAboutOutputDuringTests = false;
 
     /**
      * @var bool
      */
-    protected $beStrictAboutTodoAnnotatedTests = false;
+    private $beStrictAboutTodoAnnotatedTests = false;
 
     /**
      * @var bool
      */
-    protected $beStrictAboutResourceUsageDuringSmallTests = false;
+    private $beStrictAboutResourceUsageDuringSmallTests = false;
 
     /**
      * @var bool
      */
-    protected $enforceTimeLimit = false;
+    private $enforceTimeLimit = false;
 
     /**
      * @var int
      */
-    protected $timeoutForSmallTests = 1;
+    private $timeoutForSmallTests = 1;
 
     /**
      * @var int
      */
-    protected $timeoutForMediumTests = 10;
+    private $timeoutForMediumTests = 10;
 
     /**
      * @var int
      */
-    protected $timeoutForLargeTests = 60;
+    private $timeoutForLargeTests = 60;
 
     /**
      * @var bool
      */
-    protected $stopOnRisky = false;
+    private $stopOnRisky = false;
 
     /**
      * @var bool
      */
-    protected $stopOnIncomplete = false;
+    private $stopOnIncomplete = false;
 
     /**
      * @var bool
      */
-    protected $stopOnSkipped = false;
+    private $stopOnSkipped = false;
 
     /**
      * @var bool
      */
-    protected $lastTestFailed = false;
+    private $lastTestFailed = false;
 
     /**
      * @var int
@@ -194,7 +194,7 @@ class TestResult implements Countable
      */
     private $registerMockObjectsFromTestArgumentsRecursively = false;
 
-    public static function isAnyCoverageRequired(TestCase $test)
+    public static function isAnyCoverageRequired(TestCase $test): bool
     {
         $annotations = $test->getAnnotations();
 
@@ -600,8 +600,6 @@ class TestResult implements Countable
     {
         Assert::resetCount();
 
-        $coversNothing = false;
-
         if ($test instanceof TestCase) {
             $test->setRegisterMockObjectsFromTestArgumentsRecursively(
                 $this->registerMockObjectsFromTestArgumentsRecursively
@@ -838,15 +836,15 @@ class TestResult implements Countable
             }
         }
 
-        if ($errorHandlerSet === true) {
+        if ($errorHandlerSet) {
             \restore_error_handler();
         }
 
-        if ($error === true) {
+        if ($error) {
             $this->addError($test, $e, $time);
-        } elseif ($failure === true) {
+        } elseif ($failure) {
             $this->addFailure($test, $e, $time);
-        } elseif ($warning === true) {
+        } elseif ($warning) {
             $this->addWarning($test, $e, $time);
         } elseif ($this->beStrictAboutTestsThatDoNotTestAnything &&
             !$test->doesNotPerformAssertions() &&

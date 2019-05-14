@@ -50,11 +50,11 @@ class AjaxController extends Controller
     public function getServerInformation(String $id, Request $request)
     {
         $username = $request->request->get('username');
-        $user = \App\User::where('username', $username)->get()[0];
-        $privileges = \PrivilegeProvider::getEffectivePrivilegesForUser($user->user_id);
-        $privilegesForServer = \PrivilegeProvider::getPrivilegesForServerID($privileges, $id);
         if($username != null){
-            return \View::make('home/serverInfo', ['id' => $id, 'privileges' => $privilegesForServer])->render();
+            $user = \App\User::where('username', $username)->get()[0];
+            $privileges = \PrivilegeProvider::getEffectivePrivilegesForUser($user->user_id);
+            $privilegesForServer = \PrivilegeProvider::getPrivilegesForServerID($privileges, $id);
+            return \View::make('home/serverInfo', ['id' => $id, 'privileges' => $privilegesForServer, 'pt' => $privileges])->render();
         } else {
             return 'Call could not be authorized';
         }
@@ -65,11 +65,51 @@ class AjaxController extends Controller
     }
     public function getServerStatus(String $serverId, Request $request){
         $username = $request->request->get('username');
+
         if($username != null){
-            return $this->runSSHCmd($serverId, 'details');
+            $user = \App\User::where('username', $username)->get()[0];
+            $privileges = \PrivilegeProvider::getEffectivePrivilegesForUser($user->user_id);
+            $privilegesForServer = \PrivilegeProvider::getPrivilegesForServerID($privileges, $serverId);
+            if($privilegesForServer['lgsm_status'] != 0){
+                return $this->runSSHCmd($serverId, 'details');
+            }
+        }else{
+            return 'null';
+        }
+    }
+    public function startServer(String $serverId, Request $request){
+        $username = $request->request->get('username');
+        if($username != null){
+            return $this->runSSHCmd($serverId, 'start');
         } else {
             return 'Call could not be authorized';
         }
     }
+    public function stopServer(String $serverId, Request $request){
+        $username = $request->request->get('username');
+        if($username != null){
+            return $this->runSSHCmd($serverId, 'stop');
+        } else {
+            return 'Call could not be authorized';
+        }
+    }
+    public function restartServer(String $serverId, Request $request){
+        $username = $request->request->get('username');
+        if($username != null){
+            return $this->runSSHCmd($serverId, 'restart');
+        } else {
+            return 'Call could not be authorized';
+        }
+    }
+    public function updateServer(String $serverId, Request $request){
+        $username = $request->request->get('username');
+        if($username != null){
+            return $this->runSSHCmd($serverId, 'update');
+        } else {
+            return 'Call could not be authorized';
+        }
+    }
+    
+
 
 }

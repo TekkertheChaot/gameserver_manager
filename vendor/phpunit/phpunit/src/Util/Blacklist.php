@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -40,7 +40,7 @@ use TheSeer\Tokenizer\Tokenizer;
 use Webmozart\Assert\Assert;
 
 /**
- * Utility class for blacklisting PHPUnit's own source code files.
+ * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 final class Blacklist
 {
@@ -139,6 +139,8 @@ final class Blacklist
     private static $directories;
 
     /**
+     * @throws \ReflectionException
+     *
      * @return string[]
      */
     public function getBlacklistedDirectories(): array
@@ -148,6 +150,9 @@ final class Blacklist
         return self::$directories;
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function isBlacklisted(string $file): bool
     {
         if (\defined('PHPUNIT_TESTSUITE')) {
@@ -165,6 +170,9 @@ final class Blacklist
         return false;
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     private function initialize(): void
     {
         if (self::$directories === null) {
@@ -175,8 +183,7 @@ final class Blacklist
                     continue;
                 }
 
-                $reflector = new ReflectionClass($className);
-                $directory = $reflector->getFileName();
+                $directory = (new ReflectionClass($className))->getFileName();
 
                 for ($i = 0; $i < $parent; $i++) {
                     $directory = \dirname($directory);

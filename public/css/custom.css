@@ -29,7 +29,7 @@ pre {
     padding: 5px 15px;
   }
 .collapsant {
-    transition: max-height 0.2s ease-out;
+    transition: all 0.2s ease-out;
 }
 .active,
 .collapsible:hover {

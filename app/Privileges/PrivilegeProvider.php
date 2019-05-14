@@ -19,12 +19,11 @@ class PrivilegeProvider {
         //get user permissions and overwrite permissions
         $usersPermissions = \App\UserPrivilege::where('user_id', $currentUser->user_id)->get();
         PrivilegeProvider::addUsersPermissionsToEffectivePerms($effectivePerms, $usersPermissions);
-
         return $effectivePerms;
     }
 
     public static function getPrivilegesForServerID($effectivePrivileges, $serverId){
-        foreach ($effectivePrivileges as $effectivePrivilege) {
+        foreach ($effectivePrivileges as &$effectivePrivilege) {
             if($effectivePrivilege['server_id'] == $serverId){
                 return $effectivePrivilege;
             }
@@ -43,7 +42,7 @@ class PrivilegeProvider {
     private static function processGroupPermissionRow(&$effectivePerms, &$usersGroupPermission){
         $affectingServerID = $usersGroupPermission->server_id;
         $idFound = false;
-        foreach($effectivePerms as $effectivePerm){
+        foreach($effectivePerms as &$effectivePerm){
             if($effectivePerm['server_id'] == $affectingServerID){
                 $idFound = true;
                 PrivilegeProvider::changeRowAccordingToPermissions($effectivePerm, $usersGroupPermission);
@@ -61,7 +60,8 @@ class PrivilegeProvider {
             'lgsm_stop'=>$PermissionRow->lgsm_stop,
             'lgsm_restart'=>$PermissionRow->lgsm_restart,
             'lgsm_status'=>$PermissionRow->lgsm_status,
-            'view_in_dash'=>$PermissionRow->view_in_dash
+            'view_in_dash'=>$PermissionRow->view_in_dash,
+            'lgsm_update'=>$PermissionRow->lgsm_update
         );
         array_push($effectivePerms, $newRow);
     }
@@ -76,6 +76,7 @@ class PrivilegeProvider {
     }
 
     private static function changeRowAccordingToUserPermissions(&$effectivePermRow, &$newPermRow){
+       
         foreach($effectivePermRow as $key => $value){
             $effectivePermRow[$key] = $newPermRow[$key];
         }
@@ -83,7 +84,7 @@ class PrivilegeProvider {
     }
 
     private static function addUsersPermissionsToEffectivePerms(&$effectivePerms, &$userPermissions){
-        foreach($userPermissions as $userPermission){
+        foreach($userPermissions as &$userPermission){
             PrivilegeProvider::processUserPermissionRow($effectivePerms, $userPermission);
         }
     }
@@ -91,12 +92,13 @@ class PrivilegeProvider {
     private static function processUserPermissionRow(&$effectivePerms, &$userPermission){
         $affectingServerID = $userPermission->server_id;
         $idFound = false;
-        foreach($effectivePerms as $effectivePerm){
+        foreach($effectivePerms as &$effectivePerm){
             if($effectivePerm['server_id'] == $affectingServerID){
                 $idFound = true;
                 PrivilegeProvider::changeRowAccordingToUserPermissions($effectivePerm, $userPermission);
             }
         }
+        
         
         if(!$idFound){
             PrivilegeProvider::addRowToEffectivePerms($effectivePerms, $userPermission);

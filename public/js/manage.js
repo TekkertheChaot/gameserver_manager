@@ -20,7 +20,7 @@
     }
 
     function activateModal(modal) {
-        console.log("activating modal " + document.getElementById(modal));
+        ("activating modal " + document.getElementById(modal));
         document.getElementById(modal).style.display = "block";
         setTimeout(function() {
             document.getElementById(modal).style.backgroundColor = "rgba(0,0,0,.2)";
@@ -46,7 +46,7 @@
 
     function setLastPressed(event) {
         if (lastEvent != null) {
-            console.log('last event exists');
+            ('last event exists');
             lastEvent.originalTarget.classList.toggle('selectedMenu');
         }
         lastEvent = event;
@@ -62,9 +62,21 @@
         return document.getElementById("navbarDropdown").getAttribute("username"); 
     }
 
-    function fetchSiteIntoElement(modal, body, url) {
+    function fetchSiteIntoElement(modal, body, url){
+        fetchSiteIntoElement(modal, body, url, null, null);
+    }
+
+    function sendSSHCommand(action){
+        fetchSiteIntoElement('actions-modal', 'actions-body', 'api/dashboard/ssh/'+currentServerID+'/action/'+action, '<pre>', '</pre>');
+    }
+
+    function fetchSiteIntoElement(modal, body, url, startContentWrapper, endContentWrapper) {
+        var useWrapping;
+        if(startContentWrapper != null && endContentWrapper != null){
+            useWrapping = true;
+        }
         var username = getUsername();
-        console.log('loading ' + url + ' into', body, modal);
+        ('loading ' + url + ' into', body, modal);
         fadeOutElement(body);
         activateModal(modal);
         var data = {
@@ -79,14 +91,17 @@
             setTimeout(function() {
                 fadeOutElement(body);
                 data.text().then(function(text) {
-                    console.log();
-                document.getElementById(body).innerHTML = text;
+                    if(useWrapping){
+                        document.getElementById(body).innerHTML = startContentWrapper+text+endContentWrapper;
+                    } else {
+                        document.getElementById(body).innerHTML = text;
+                    }
                 });
             }, fadeLength);
-            console.log("retrieved content, disabling modal ", document.getElementById(modal));
+            ("retrieved content, disabling modal ", document.getElementById(modal));
         deactivateModal(modal);
         setTimeout(function() {
-            console.log('fadeIn ELement')
+            ('fadeIn ELement')
             fadeInElement(body);
         }, fadeLength);
         });
@@ -104,10 +119,11 @@
 
     
 function hello(){
-    console.log("heeeeellllllllllooooooooooooooooooooooooooo");
+    ("heeeeellllllllllooooooooooooooooooooooooooo");
 }
 
 function collapseCollapsible(event) {
+    console.log('collapsing');
     event.originalTarget.classList.toggle('active');
     var content = event.originalTarget.nextElementSibling;
     content.classList.toggle('closedCollapsible');
@@ -117,6 +133,7 @@ function collapseCollapsible(event) {
 }
 
 function onClickServer(event){
+    window.clearInterval();
     collapseCollapsible(event);
     if(lastClickedServer == null || lastClickedServer != event.originalTarget){
         lastClickedServer = event.originalTarget;
@@ -142,7 +159,25 @@ function isAddUserDataValid(){
 // TODO
 
 function onClickGetStatus(event){
-    getStatusOverSSH();
+    window.setInterval(function(){
+        console.log("I call for server Status on ServerID "+lastClickedServer);
+        fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', '<pre>', '</pre>');;
+    }, 20000);
+    fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', '<pre>', '</pre>');
+}
+
+function onClickStartServer(){
+    sendSSHCommand('start');
+
+}
+function onClickStopServer(){
+    sendSSHCommand('stop');
+}
+function onClickRestartServer(){
+    sendSSHCommand('restart');
+}
+function onClickUpdateServer(){
+    sendSSHCommand('update');
 }
 
 function getStatusOverSSH(){
@@ -157,8 +192,8 @@ function getStatusOverSSH(){
       };
     fetch('api/dashboard/ssh/'+currentServerID+'/status', data).then(function(response) {
         response.text().then(function(text){
-            console.log(text);
             document.getElementById('status-body').innerHTML = '<pre>'+text+'</pre>' ;
         })
     })
 }
+
