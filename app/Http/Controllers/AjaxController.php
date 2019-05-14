@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require_once('./../app/Joking/testclass.php');
+require_once('./../app/SSH/SSHComunicator.php');
 
 class AjaxController extends Controller
 {
@@ -50,10 +50,12 @@ class AjaxController extends Controller
     {
         return \View::make('home/serverInfo', ['id' => $id])->render();
     }
-    public function runSSHCmd(String $serverId, String $cmd, Request $request)
+    private function runSSHCmd(String $serverId, String $cmd)
     {
-        $retrievedCmd = $request->request->get('cmd');
-        return \TestClass::doSSH($retrievedCmd);
+        return \SSHComunicator::executeCommand($serverId, $cmd);
+    }
+    public function getServerStatus(String $serverId){
+        return $this->runSSHCmd($serverId, 'details');
     }
 
 }

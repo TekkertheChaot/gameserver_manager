@@ -1,5 +1,6 @@
 
     var lastEvent;
+    var lastClickedServer;
     var siteModalID = 'siteModal';
     var popupModalID = 'popupModal';
     var popupID = 'popupDialog';
@@ -135,19 +136,19 @@ function collapseCollapsible(event) {
     content.classList.toggle('closedCollapsible');
     if (content.style.maxHeight) {
         content.style.maxHeight = null;
-    } else {
-        content.style.maxHeight = content.scrollHeight + "px";
     }
 }
 
 function onClickServer(event){
     collapseCollapsible(event);
-    var serverID = getServerIDFromServerCard(event);
-    fetchSiteIntoElement(cardboardModalID, cardboardID, 'api/dashboard/server/'+serverID);
+    if(lastClickedServer == null || lastClickedServer != event.originalTarget){
+        lastClickedServer = event.originalTarget;
+        var serverID = getServerIDFromServerCard(event);
+        fetchSiteIntoElement(cardboardModalID, cardboardID, 'api/dashboard/server/'+serverID);
+    }
 }
 
 function getServerIDFromServerCard(event){
-
     return currentServerID = event.originalTarget.offsetParent.id.replace('server_','');
 }
 
@@ -185,19 +186,14 @@ function doSSHtest() {
     xhttp.send(params);
 }
 
-function onClickRunSSH(event){
-    var cmd = document.getElementById('cmd').value;
-    data = {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ cmd: cmd})
-      };
-    fetch('api/dashboard/ssh/'+currentServerID+"/"+cmd, data).then(function(response) {
+
+
+function runSSH(event){
+    console.log('button pressed');
+    fetch('api/dashboard/ssh/'+currentServerID+'/status').then(function(response) {
         response.text().then(function(text){
-            document.getElementById('console-body').innerHTML = '<pre>'+text+'</pre>' ;
+            console.log(text);
+            document.getElementById('status-body').innerHTML = '<pre>'+text+'</pre>' ;
         })
     })
 }

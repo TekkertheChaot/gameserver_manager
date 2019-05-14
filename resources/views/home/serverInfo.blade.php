@@ -4,20 +4,12 @@ $game = \App\Game::where('game_id', $server->game_id)->get()[0];
 ?>
 
 <style>
-.info-table {
-  border: 2px;
-  border-color: rgb(255,0,0);
-}
-td {
-  border: 2px solid rgb(255,0,0);
-  padding: 5px 15px;
-}
 </style>
 
 
-<div id="server-info" class="card">
-    <div id="card-header" class="card-header">Server Information</div>
-    <div id="card-body" class="card-body">
+<div id="server-info" class="card floating-card">
+    <div class="card-header collapsible" onClick="collapseCollapsible(event)">Server Information</div>
+    <div id="serverinfo-card-body" class="card-body card-body-with-overflow closedCollapsible collapsant">
     <table class="info-table">
       <tr>
         <td>Server Name:</td>
@@ -35,12 +27,10 @@ td {
     </div>
 </div>
 
-<div id="console-card" class="card">
-    <div class="card-header">Console</div>
-    <div id="console-body" class="card-body">
-    </div>
-    <div id="console-footer" class="card-footer">
-    <input id="cmd" type="text">
-    <button id="doSSH" onClick="onClickRunSSH(event)">send SSH</button>
-    </div>
+<div id="status-card" class="card floating-card" >
+    <div class="card-header collapsible" onCLick="collapseCollapsible(event)">Status</div>
+    <div id="status-body" class="card-body card-body-with-overflow closedCollapsible collapsant">Click to retrieve Status<div id="console-footer" class="card-footer">
+    <button id="doSSH" onClick="runSSH(event)">Get status</button>
+    </div></div>
+    
 </div>

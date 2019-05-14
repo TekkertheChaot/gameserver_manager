@@ -25,4 +25,4 @@ Route::get('/management/creds', 'AjaxController@getCredsPage');
 Route::get('/management/privs', 'AjaxController@getPrivsPage');
 Route::get('/management/users/add', 'AjaxController@getAddUserDialog');
 Route::get('/dashboard/server/{id}', 'AjaxController@getServerInformation');
-Route::post('/dashboard/ssh/{serverId}/{cmd}', 'AjaxController@runSSHCmd');
+Route::get('/dashboard/ssh/{serverId}/status', 'AjaxController@getServerStatus');
