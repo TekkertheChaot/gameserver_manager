@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -17,7 +17,7 @@ use ReflectionException;
 use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
 
 /**
- * Base class for all test runners.
+ * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 abstract class BaseTestRunner
 {
@@ -55,13 +55,12 @@ abstract class BaseTestRunner
      * @param array|string $suffixes
      *
      * @throws Exception
+     * @throws ReflectionException
      */
     public function getTest(string $suiteClassName, string $suiteClassFile = '', $suffixes = ''): ?Test
     {
-        if (\is_dir($suiteClassName) &&
-            !\is_file($suiteClassName . '.php') && empty($suiteClassFile)) {
-            $facade = new FileIteratorFacade;
-            $files  = $facade->getFilesAsArray(
+        if (empty($suiteClassFile) && \is_dir($suiteClassName) && !\is_file($suiteClassName . '.php')) {
+            $files  = (new FileIteratorFacade)->getFilesAsArray(
                 $suiteClassName,
                 $suffixes
             );
@@ -125,9 +124,7 @@ abstract class BaseTestRunner
      */
     protected function loadSuiteClass(string $suiteClassName, string $suiteClassFile = ''): ReflectionClass
     {
-        $loader = $this->getLoader();
-
-        return $loader->load($suiteClassName, $suiteClassFile);
+        return $this->getLoader()->load($suiteClassName, $suiteClassFile);
     }
 
     /**
@@ -141,5 +138,5 @@ abstract class BaseTestRunner
      * Override to define how to handle a failed loading of
      * a test suite.
      */
-    abstract protected function runFailed(string $message);
+    abstract protected function runFailed(string $message): void;
 }

@@ -1,7 +1,7 @@
 --TEST--
 Mock method and call original method with argument
 --FILE--
-<?php
+<?php declare(strict_types=1);
 class Foo
 {
     private function bar($arg){}
@@ -35,15 +35,11 @@ private function bar($arg)
             }
         }
 
-        $__phpunit_invocation = new \PHPUnit\Framework\MockObject\Invocation\ObjectInvocation(
-            'Foo', 'bar', $__phpunit_arguments, '', $this, false
+        $this->__phpunit_getInvocationMocker()->invoke(
+            new \PHPUnit\Framework\MockObject\Invocation\ObjectInvocation(
+                'Foo', 'bar', $__phpunit_arguments, '', $this, false, true
+            )
         );
-
-        $__phpunit_invocation->setProxiedCall();
-
-        $this->__phpunit_getInvocationMocker()->invoke($__phpunit_invocation);
-
-        unset($__phpunit_invocation);
 
         return call_user_func_array(array($this->__phpunit_originalObject, "bar"), $__phpunit_arguments);
     }

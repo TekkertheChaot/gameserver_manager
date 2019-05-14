@@ -26,3 +26,7 @@ Route::post('/management/privs', 'AjaxController@getPrivsPage');
 Route::post('/management/users/add', 'AjaxController@getAddUserDialog');
 Route::post('/dashboard/server/{id}', 'AjaxController@getServerInformation');
 Route::post('/dashboard/ssh/{serverId}/status', 'AjaxController@getServerStatus');
+Route::post('/dashboard/ssh/{serverId}/action/start', 'AjaxController@startServer');
+Route::post('/dashboard/ssh/{serverId}/action/stop', 'AjaxController@stopServer');
+Route::post('/dashboard/ssh/{serverId}/action/restart', 'AjaxController@restartServer');
+Route::post('/dashboard/ssh/{serverId}/action/update', 'AjaxController@updateServer');

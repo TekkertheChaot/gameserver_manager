@@ -29,7 +29,7 @@ pre {
     padding: 5px 15px;
   }
 .collapsant {
-    transition: max-height 0.2s ease-out;
+    transition: all 0.2s ease-out;
 }
 .active,
 .collapsible:hover {
@@ -85,11 +85,9 @@ pre {
     overflow-x: hidden;
     max-width: 400px;
     margin-left: 15px;
-    display: inline-block;
     float: left;
 }
 
-.sidebar-card-header {}
 
 .sidebar-card-body {
     height: 85vh;
@@ -128,9 +126,7 @@ pre {
     max-height: 0px;
 }
 
-.controll-icon-enabled {}
 
-.controll-icon-disabled {}
 
 .col-md-8 {
     flex: 0 0 100%;
