@@ -21,9 +21,8 @@
     
     <link href="{{ asset('css/backgroundAnimation.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/loading.css') }}" rel="stylesheet">
-    @yield('customStyle')
+    @yield('customHead')
 </head>
 
 @guest
@@ -68,7 +67,7 @@
                                 @endif
                                 @else
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                    <a username="{{Auth::user()->username}}" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->username }} <span class="caret"></span>
                                     </a>

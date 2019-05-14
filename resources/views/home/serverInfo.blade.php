@@ -29,8 +29,33 @@ $game = \App\Game::where('game_id', $server->game_id)->get()[0];
 
 <div id="status-card" class="card floating-card" >
     <div class="card-header collapsible" onCLick="collapseCollapsible(event)">Status</div>
-    <div id="status-body" class="card-body card-body-with-overflow closedCollapsible collapsant">Click to retrieve Status<div id="console-footer" class="card-footer">
-    <button id="doSSH" onClick="runSSH(event)">Get status</button>
-    </div></div>
+    <div id="status-body" class="card-body card-body-with-overflow closedCollapsible collapsant">
+    @if($privileges['lgsm_status'] != 0)
+    Click to retrieve Status
+    <div id="console-footer" class="card-footer">
+    <button id="doSSH" onClick="onClickGetStatus(event)">Get status</button>
+    </div>
+    @else 
+    You don't have permissions to get the status of this server.
+    @endif
+    </div>
+    
+</div>
+
+<div id="actions-card" class="card floating-card" >
+    <div class="card-header collapsible" onCLick="collapseCollapsible(event)">Actions</div>
+    <div id="status-body" class="card-body card-body-with-overflow closedCollapsible collapsant">
+    @if($privileges['lgsm_start'] != 0)
+    <button id="doSSH" onClick="runSSH(event)">Start Server</button>
+    @endif
+    @if($privileges['lgsm_stop'] != 0)
+    <button id="doSSH" onClick="runSSH(event)">Stop Server</button>
+    @endif
+    @if($privileges['lgsm_restart'] != 0)
+    <button id="doSSH" onClick="runSSH(event)">Restart Server</button>
+    @endif
+    @if($privileges['lgsm_update'] != 0)
+    <button id="doSSH" onClick="runSSH(event)">Update Server</button>
+    @endif</div>
     
 </div>

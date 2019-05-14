@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 require_once('./../app/SSH/SSHComunicator.php');
+require_once('./../app/Privileges/PrivilegeProvider.php');
 
 class AjaxController extends Controller
 {
@@ -46,16 +47,29 @@ class AjaxController extends Controller
     {
         return \View::make('management/privileges')->render();
     }
-    public function getServerInformation(String $id)
+    public function getServerInformation(String $id, Request $request)
     {
-        return \View::make('home/serverInfo', ['id' => $id])->render();
+        $username = $request->request->get('username');
+        $user = \App\User::where('username', $username)->get()[0];
+        $privileges = \PrivilegeProvider::getEffectivePrivilegesForUser($user->user_id);
+        $privilegesForServer = \PrivilegeProvider::getPrivilegesForServerID($privileges, $id);
+        if($username != null){
+            return \View::make('home/serverInfo', ['id' => $id, 'privileges' => $privilegesForServer])->render();
+        } else {
+            return 'Call could not be authorized';
+        }
     }
     private function runSSHCmd(String $serverId, String $cmd)
     {
         return \SSHComunicator::executeCommand($serverId, $cmd);
     }
-    public function getServerStatus(String $serverId){
-        return $this->runSSHCmd($serverId, 'details');
+    public function getServerStatus(String $serverId, Request $request){
+        $username = $request->request->get('username');
+        if($username != null){
+            return $this->runSSHCmd($serverId, 'details');
+        } else {
+            return 'Call could not be authorized';
+        }
     }
 
 }

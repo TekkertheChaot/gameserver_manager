@@ -11,6 +11,10 @@ pre {
     margin: .5rem;
   
   }
+
+  .card-body{
+    transition: opacity .2s ease-in;
+  }
   .card-body-with-overflow {
     overflow: auto;
     max-height: 250px;

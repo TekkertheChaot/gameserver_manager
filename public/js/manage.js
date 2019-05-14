@@ -11,7 +11,7 @@
 
     function openAddUserDialog(event) {
         openDialog('Add a user');
-        loadSiteIntoElement(popupModalID, popupID, 'api/management/users/add');
+        fetchSiteIntoElement(popupModalID, popupID, 'api/management/users/add');
     }
 
     function openDialog(header) {
@@ -58,48 +58,24 @@
         deactivateModal(siteModalID);
     }
 
-    function loadSiteIntoElement(modal, body, url) {
-        console.log('loading ' + url + ' into', body, modal);
-        fadeOutElement(body);
-        console.log("Button pressed");
-        activateModal(modal);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.status != 0) {
-                console.log(this.status);
-                fadeOutElement(body);
-                if (this.readyState == 4 && this.status == 200) {
-                    setTimeout(function() {
-                        document.getElementById(body).innerHTML = xhttp.responseText;
-                    }, fadeLength);
-                } else if (this.readyState == 4 && this.status != 0) {
-                    setTimeout(function() {
-                        if (xhttp.responseText.includes("Whoops! There was an error.")) {
-                            document.documentElement.innerHTML = xhttp.responseText;
-                        } else {
-                            document.getElementById(body).innerHTML = xhttp.responseText;
-                        }
-                        console.log(xhttp.responseText);
-                    }, fadeLength);
-                }
-                console.log("retrieved content, disabling modal ", document.getElementById(modal));
-                deactivateModal(modal);
-                setTimeout(function() {
-                    fadeInElement(body);
-                }, fadeLength);
-
-            }
-        };
-        xhttp.open("GET", url, true);
-        xhttp.send();
+    function getUsername(){
+        return document.getElementById("navbarDropdown").getAttribute("username"); 
     }
 
     function fetchSiteIntoElement(modal, body, url) {
+        var username = getUsername();
         console.log('loading ' + url + ' into', body, modal);
         fadeOutElement(body);
         activateModal(modal);
-        
-        fetch(url).then(function(data) {
+        var data = {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username: username})
+          };
+        fetch(url, data).then(function(data) {
             setTimeout(function() {
                 fadeOutElement(body);
                 data.text().then(function(text) {
@@ -110,6 +86,7 @@
             console.log("retrieved content, disabling modal ", document.getElementById(modal));
         deactivateModal(modal);
         setTimeout(function() {
+            console.log('fadeIn ELement')
             fadeInElement(body);
         }, fadeLength);
         });
@@ -164,33 +141,21 @@ function isAddUserDataValid(){
 }
 // TODO
 
-function doSSHtest() {
-    var data = document.getElementById('sshfield').value;
-    console.log("Button pressed");
-    var params = typeof data == 'string' ? data : Object.keys(data).map(
-        function(k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-        }
-    ).join('&');
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("console-output").innerHTML = this.responseText;
-            console.log(this.responseText);
-        } else {
-            console.log(this.status);
-        }
-    };
-    xhttp.open("POST", "api/ssh/APItest");
-    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.send(params);
+function onClickGetStatus(event){
+    getStatusOverSSH();
 }
 
-
-
-function runSSH(event){
-    console.log('button pressed');
-    fetch('api/dashboard/ssh/'+currentServerID+'/status').then(function(response) {
+function getStatusOverSSH(){
+    var username = getUsername();
+    var data = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username: username})
+      };
+    fetch('api/dashboard/ssh/'+currentServerID+'/status', data).then(function(response) {
         response.text().then(function(text){
             console.log(text);
             document.getElementById('status-body').innerHTML = '<pre>'+text+'</pre>' ;

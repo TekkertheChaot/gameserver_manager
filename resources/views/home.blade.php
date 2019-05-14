@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
-@section('customStyle')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<style>
-</style>
+@section('customHead')  
+<link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
