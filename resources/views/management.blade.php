@@ -35,8 +35,7 @@
         <div id="sbcardheader" class="card-header sidebar-card-header">
             Sidebar</div>
         <div id="sbcardbody" class="sidebar-card-body">
-            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'users')">Users</div>
-            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'groups')">Groups</div>
+            <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'users')">Users & Groups</div>
             <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'servers')">Servers</div>
             <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'games')">Games</div>
             <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'hosts')">Hosts</div>

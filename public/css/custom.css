@@ -20,11 +20,26 @@ pre {
     max-height: 250px;
     max-width: 500px;
   }
+  .header-row {
+      background-color: rgba(0,0,0,.1);
+  }
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    }
+
+    td,
+    th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+
   .info-table {
     border: 2px;
     border-color: rgb(255,0,0);
   }
-  td {
+  .info-td {
     border: 2px solid rgb(255,0,0);
     padding: 5px 15px;
   }
@@ -274,6 +289,23 @@ pre {
     background-color: rgba(0, 0, 0, .03);
     border-bottom: 1px solid rgba(0, 0, 0, .125);
     transition: background-color 0.2s ease-out;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.table-width-100{
+    width: 100%;
+}
+
+.group-td {
+    transition: background-color .2s ease-in;
+    cursor: pointer;
+    
+}
+.group-td:hover{
+    background-color: cadetblue;
 }
 
 .selectedMenu {

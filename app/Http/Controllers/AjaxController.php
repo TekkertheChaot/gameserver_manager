@@ -9,14 +9,20 @@ class AjaxController extends Controller
 {
     public function testcall(Request $request)
     {
+        
         $data = $request->all(); // This will get all the request data.
         dd($data); // This will dump and die
     }
 
     public function getUsersPage(Request $request)
     {
-        return \View::make('management/users')->render();
+        $username = $request->request->get('username');
+        if($username != null){
+            return \View::make('management/users')->render();
+        } else {
+        return 'Call could not be authorized';
     }
+}
 
     public function getGroupsPage(Request $request)
     {

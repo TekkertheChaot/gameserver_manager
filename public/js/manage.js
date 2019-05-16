@@ -101,7 +101,6 @@
             ("retrieved content, disabling modal ", document.getElementById(modal));
         deactivateModal(modal);
         setTimeout(function() {
-            ('fadeIn ELement')
             fadeInElement(body);
         }, fadeLength);
         });
@@ -195,5 +194,11 @@ function getStatusOverSSH(){
             document.getElementById('status-body').innerHTML = '<pre>'+text+'</pre>' ;
         })
     })
+}
+
+function onClickInspectGroup(event){
+    var selected= (event.originalTarget);
+    var selectedGroupName = selected.innerHTML;
+    fetchSiteIntoElement('group-inspect-modal', 'group-inspect-body', 'api/management/groups/'+selectedGroupName+'/inspect');
 }
 

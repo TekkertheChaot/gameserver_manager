@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('/management/users', 'AjaxController@getUsersPage');
 Route::post('/management/groups', 'AjaxController@getGroupsPage');
+Route::post('/management/groups/{groupName}/inspect', 'GroupsController@inspectGroup');
 Route::post('/management/servers', 'AjaxController@getServersPage');
 Route::post('/management/games', 'AjaxController@getGamesPage');
 Route::post('/management/hosts', 'AjaxController@getHostsPage');

@@ -5,31 +5,34 @@ $users_groups = \App\User_Group::all();
 
 
 <style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
 </style>
-<table>
-    <tr>
-        <th>Group ID</th>
-        <th>Group Name</th>
-    </tr>
-    <?php foreach($groups as $group): ?>
-    <tr>
-        <td>{{$group->group_id}}</td>
-        <td>{{$group->group_name}}</td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+<div class="card floating-card">
+    <div class="card-header">All groups</div>
+    <div class="card-body no-padding">
+        <table class="table-width-100">
+            @foreach($groups as $group)
+            <tr>
+                <td class="group-td" onClick="onClickInspectGroup(event)">{{$group->group_name}}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+</div>
+
+<div class="card floating-card">
+    <div id="group-inspect-modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-c">
+            <div class="ld ld-spin-fast ld-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-header">Members</div>
+    <div id="group-inspect-body" class="card-body no-padding">
+      <div class="card-body">Select a Group to inspect</div>
+    </div>
