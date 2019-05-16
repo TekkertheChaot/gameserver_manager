@@ -65,6 +65,15 @@
         letter-spacing: .1rem;
         text-decoration: none;
         text-transform: uppercase;
+        test-shadow: 1px 1px 20px rgba(0,0,0,.4);
+    }
+    
+    .link-buttons > a{
+        padding: 10px 25px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: white;
+        border-radius: .5rem;
     }
 
     .m-b-md {
@@ -81,7 +90,7 @@
 <body>
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
-        <div class="top-right links">
+        <div class="top-right link-buttons links">
             @auth
             <a href="{{ url('/home') }}">Home</a>
             @else
