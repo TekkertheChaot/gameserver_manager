@@ -55,6 +55,7 @@
 
     .title {
         font-size: 84px;
+        text-shadow: 1px 1px 30px rgba(0,0,0,.7);
     }
 
     .links>a {
@@ -65,7 +66,7 @@
         letter-spacing: .1rem;
         text-decoration: none;
         text-transform: uppercase;
-        test-shadow: 1px 1px 20px rgba(0,0,0,.4);
+        text-shadow: 1px 1px 20px rgba(0,0,0,.4);
     }
     
     .link-buttons > a{
