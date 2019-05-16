@@ -115,6 +115,7 @@
         </div>
         <div class="site-footer links">
             <a href="{{ url('/about') }}">About this site</a>
+            <a href="https://github.com/TekkertheChaot/gameserver_manager/">See the sauce</a>
         </div>
     </div>
 
