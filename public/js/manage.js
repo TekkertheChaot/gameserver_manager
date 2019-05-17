@@ -4,14 +4,23 @@
     var siteModalID = 'siteModal';
     var popupModalID = 'popupModal';
     var popupID = 'popupDialog';
-    var cardboardModalID = 'myModal';
+    var cardboardModalID = 'cardboardModal';
     var cardboardID = 'cardboard-body';
     var fadeLength = 200;
     var currentServerID;
+    var intervall;
 
     function openAddUserDialog(event) {
         openDialog('Add a user');
-        fetchSiteIntoElement(popupModalID, popupID, 'api/management/users/add');
+        fetchSiteIntoElement(popupModalID, popupID, 'api/management/users/addDialog');
+    }
+    function openEditUserDialog(event) {
+        openDialog('Edit a user');
+        fetchSiteIntoElement(popupModalID, popupID, 'api/management/users/editDialog');
+    }
+    function openDeleteUserDialog(event) {
+        openDialog('Delete a user');
+        fetchSiteIntoElement(popupModalID, popupID, 'api/management/users/deleteDialog');
     }
 
     function openDialog(header) {
@@ -71,11 +80,20 @@
     }
 
     function fetchSiteIntoElement(modal, body, url, startContentWrapper, endContentWrapper) {
+        var username = getUsername();
+        var json = JSON.stringify({loggedUsername: username});
+        makeAjaxCall(modal, body, url, json, startContentWrapper, endContentWrapper);
+    }
+
+    function makeAjaxCall(modal, body, url, json, expectJsonResponse){
+        makeAjaxCall(modal, body, url, json, null, null);
+    }
+
+    function makeAjaxCall(modal, body, url, json, expectJsonResponse, startContentWrapper, endContentWrapper) {
         var useWrapping;
         if(startContentWrapper != null && endContentWrapper != null){
             useWrapping = true;
         }
-        var username = getUsername();
         ('loading ' + url + ' into', body, modal);
         fadeOutElement(body);
         activateModal(modal);
@@ -85,17 +103,23 @@
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({username: username})
+            body: json
           };
         fetch(url, data).then(function(data) {
             setTimeout(function() {
                 fadeOutElement(body);
                 data.text().then(function(text) {
+                    console.log(text);
+                    if(expectJsonResponse){
+                        var response = JSON.parse(text);
+                        text = response.message;
+                    } 
                     if(useWrapping){
                         document.getElementById(body).innerHTML = startContentWrapper+text+endContentWrapper;
                     } else {
                         document.getElementById(body).innerHTML = text;
                     }
+                    
                 });
             }, fadeLength);
             ("retrieved content, disabling modal ", document.getElementById(modal));
@@ -104,8 +128,6 @@
             fadeInElement(body);
         }, fadeLength);
         });
-        
-        
     }
 
     function fadeOutElement(element) {
@@ -115,11 +137,6 @@
     function fadeInElement(element) {
         document.getElementById(element).style.opacity = 1;
     }
-
-    
-function hello(){
-    ("heeeeellllllllllooooooooooooooooooooooooooo");
-}
 
 function collapseCollapsible(event) {
     console.log('collapsing');
@@ -132,7 +149,9 @@ function collapseCollapsible(event) {
 }
 
 function onClickServer(event){
-    window.clearInterval();
+    if(intervall != null){
+        window.clearInterval(intervall);
+    }
     collapseCollapsible(event);
     if(lastClickedServer == null || lastClickedServer != event.originalTarget){
         lastClickedServer = event.originalTarget;
@@ -158,7 +177,7 @@ function isAddUserDataValid(){
 // TODO
 
 function onClickGetStatus(event){
-    window.setInterval(function(){
+    intervall = window.setInterval(function(){
         console.log("I call for server Status on ServerID "+lastClickedServer);
         fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', '<pre>', '</pre>');;
     }, 20000);
@@ -187,7 +206,7 @@ function getStatusOverSSH(){
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username: username})
+        body: JSON.stringify({loggedUsername: username})
       };
     fetch('api/dashboard/ssh/'+currentServerID+'/status', data).then(function(response) {
         response.text().then(function(text){
@@ -202,3 +221,47 @@ function onClickInspectGroup(event){
     fetchSiteIntoElement('group-inspect-modal', 'group-inspect-body', 'api/management/groups/'+selectedGroupName+'/inspect');
 }
 
+function onClickSubmitAddUser(event){
+    if(passwordCaptchaValid()){
+        var currentUsername = getUsername();
+        var newUsername = document.getElementById('username').value;
+        var newEmail= document.getElementById('email').value;
+        var newPassword= document.getElementById('password').value;
+        var json = JSON.stringify({loggedUsername: currentUsername, username: newUsername, email: newEmail, password: newPassword});
+        makeAjaxCall('popupModal', 'popupDialog', 'api/management/users/action/add', json, true);
+    } else {
+        document.getElementById('submitError').innerHTML = 'Passwords did not match';
+    }
+}
+
+function onClickSubmitEditUser(event){
+    if(passwordCaptchaValid()){
+        var currentUsername = getUsername();
+        var selector = document.getElementById('user_id_selector');
+        var editUser_id = selector.options[selector.selectedIndex].value;
+        var editUsername = document.getElementById('username').value;
+        var editEmail= document.getElementById('email').value;
+        var editPassword= document.getElementById('password').value;
+        var json = JSON.stringify({loggedUsername: currentUsername, username: editUsername, email: editEmail, password: editPassword, user_id: editUser_id});
+        makeAjaxCall('popupModal', 'popupDialog', 'api/management/users/action/edit', json, true);
+    } else {
+        document.getElementById('submitError').innerHTML = 'Passwords did not match';
+    }
+}
+
+function onClickSubmitDeleteUser(event){
+    var currentUsername = getUsername();
+    var selector = document.getElementById('user_id_selector');
+    var deleteUser_id = selector.options[selector.selectedIndex].value;
+    var json = JSON.stringify({loggedUsername: currentUsername, user_id: deleteUser_id});
+    makeAjaxCall('popupModal', 'popupDialog', 'api/management/users/action/delete', json, true);
+}
+
+function passwordCaptchaValid(){
+    var valPass1 = document.getElementById('password').value;
+    var valPass2 = document.getElementById('password-confirm').value;
+    if(valPass1 != "" && valPass2 != ""){
+        return (valPass1 == valPass2);
+    } 
+    return false;
+}

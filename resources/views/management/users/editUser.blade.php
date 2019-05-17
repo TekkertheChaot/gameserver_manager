@@ -5,13 +5,24 @@ $users = \App\User::all();
 
 <style>
 </style>
+<div class="form-group row">
+    <label for="user_id" class="col-md-4 col-form-label text-md-right">Choose a User to edit:</label>
+    <div class="col-md-6">
+        <select name="user_id" id="user_id_selector" onChange="">
+            @foreach($users as $user)
+            <option value="{{$user->user_id}}">{{$user->username}}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+
 
 <div class="form-group row">
     <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
 
     <div class="col-md-6">
-        <input id="username" type="text" class="form-control" name="username"
-            value="" required autocomplete="username" autofocus>
+        <input id="username" type="text" class="form-control" name="username" value="" required autocomplete="username"
+            autofocus>
     </div>
 </div>
 
@@ -19,8 +30,7 @@ $users = \App\User::all();
     <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
     <div class="col-md-6">
-        <input id="email" type="email" class="form-control" name="email"
-            value="" required autocomplete="email">
+        <input id="email" type="email" class="form-control" name="email" value="" required autocomplete="email">
     </div>
 </div>
 
@@ -28,8 +38,7 @@ $users = \App\User::all();
     <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
     <div class="col-md-6">
-        <input id="password" type="password" class="form-control"
-            name="password" required autocomplete="new-password">
+        <input id="password" type="password" class="form-control" name="password" required autocomplete="new-password">
     </div>
 </div>
 
@@ -44,7 +53,7 @@ $users = \App\User::all();
 <div id="submitError"></div>
 
 
-<button id="complete" class="button" onClick="onClickSubmitAddUser(event)">submit</button>
+<button id="complete" class="button" onClick="onClickSubmitEditUser(event)">submit</button>
 
 <script>
 </script>

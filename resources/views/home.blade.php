@@ -64,7 +64,7 @@
         <div class="col-md-8">
             <div id="cardboard" class="card">
                 <!-- The Modal -->
-                <div id="myModal" class="modal">
+                <div id="cardboardModal" class="modal">
 
                     <!-- Modal content -->
                     <div class="modal-c">

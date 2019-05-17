@@ -18,6 +18,13 @@ class CreateGroupsTable extends Migration
             $table->increments('group_id');
             $table->string('group_name')->unique();
         });
+
+        DB::table('Groups')->insert(
+            array(
+                'group_id' => 1,
+                'group_name' => 'admins'
+            )
+        );
     }
 
     /**

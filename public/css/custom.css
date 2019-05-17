@@ -14,6 +14,8 @@ pre {
 
   .card-body{
     transition: opacity .2s ease-in;
+    max-height: 90vh;
+    max-width: 96vw;
   }
   .card-body-with-overflow {
     overflow: auto;
@@ -141,7 +143,9 @@ pre {
     max-height: 0px;
 }
 
-
+.popup-card {
+    background-color: rgb(255,255,255);
+}
 
 .col-md-8 {
     flex: 0 0 100%;
@@ -190,6 +194,14 @@ pre {
 
 #sshfield {
     width: 50%;
+}
+
+#popupDialogHeader {
+    float: left;
+}
+
+#errorMessage {
+    color: red;
 }
 
 

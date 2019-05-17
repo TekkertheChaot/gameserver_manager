@@ -9,7 +9,7 @@
 <div id="siteModal" class="modal">
     <!-- Modal content -->
     <div class="modal-c">
-        <div class="close" onClick="closePopup(event)">&times;</div>
+
         <div class="popup-card card">
             <div id="popupModal" class="modal">
                 <!-- Modal content -->
@@ -22,7 +22,9 @@
                     </div>
                 </div>
             </div>
-            <div id="popupDialogHeader" class="card-header">Header
+            <div class="card-header">
+                <div id="popupDialogHeader"> Header </div>
+                <div class="close" onClick="closePopup(event)">&times;</div>
             </div>
             <div id="popupDialog" class="card-body">Body</div>
             <div></div>
@@ -49,7 +51,7 @@
         <div class="col-md-8">
             <div id="cardboard" class="card">
                 <!-- The Modal -->
-                <div id="myModal" class="modal">
+                <div id="cardboardModal" class="modal">
 
                     <!-- Modal content -->
                     <div class="modal-c">

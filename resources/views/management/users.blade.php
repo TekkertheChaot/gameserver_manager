@@ -36,6 +36,8 @@ $users_groups = \App\User_Group::all();
             @endforeach
         </table>
         <button id="addUser" class="button" onClick="openAddUserDialog(event)">Add User</button>
+        <button id="editUser" class="button" onClick="openEditUserDialog(event)">Edit User</button>
+        <button id="deleteUser" class="button" onClick="openDeleteUserDialog(event)">Delete User</button>
     </div>
 </div>
 

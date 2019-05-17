@@ -20,6 +20,13 @@ class CreateUserGroupsTable extends Migration
             $table->integer('group_id')->unsigned();
             $table->foreign('group_id')->references('group_id')->on('groups')->onDelete('cascade');
         });
+
+        DB::table('User_Group')->insert(
+            array(
+                'user_id' => 1,
+                'group_id' => 1
+            )
+        );
     }
 
     /**
