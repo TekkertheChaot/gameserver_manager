@@ -13,7 +13,7 @@ class CreateServercredentialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Server_Credentials', function (Blueprint $table) {
+        Schema::create('server_credentials', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('credential_id');
             $table->integer('host_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateServercredentialsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('Server_Credentials');
+        Schema::dropIfExists('server_credentials');
     }
 }

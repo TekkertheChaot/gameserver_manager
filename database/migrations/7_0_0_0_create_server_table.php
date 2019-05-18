@@ -13,7 +13,7 @@ class CreateServerTable extends Migration
      */
     public function up()
     {
-        Schema::create('Servers', function (Blueprint $table) {
+        Schema::create('servers', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('server_id');
             $table->string('server_name')->unique();
@@ -35,6 +35,6 @@ class CreateServerTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('Servers');
+        Schema::dropIfExists('servers');
     }
 }

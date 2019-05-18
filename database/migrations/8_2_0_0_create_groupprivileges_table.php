@@ -13,7 +13,7 @@ class CreateGroupPrivilegesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Group_Privileges', function (Blueprint $table) {
+        Schema::create('group_privileges', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->Integer('group_id')->unsigned();
             $table->foreign('group_id')->references('group_id')->on('groups')->onDelete('cascade');
@@ -36,6 +36,6 @@ class CreateGroupPrivilegesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('Group_Privileges');
+        Schema::dropIfExists('group_privileges');
     }
 }
