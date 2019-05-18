@@ -14,6 +14,19 @@ class UserController extends Controller
         dd($data); // This will dump and die
     }
 
+    public function getAddUserDialog(Request $request)
+    {
+        return \View::make('management/users/addUser')->render();
+    }
+    public function getEditUserDialog(Request $request)
+    {
+        return \View::make('management/users/editUser')->render();
+    }
+    public function getDeleteUserDialog(Request $request)
+    {
+        return \View::make('management/users/deleteUser')->render();
+    }
+
     public function addUser(Request $request){
         
         if($this->isCallAuthorized($request)){
@@ -164,11 +177,7 @@ class UserController extends Controller
             if(strlen($password) <= 64){
                 if (preg_match('/[%&*@#~?-]/', $password)){
                     if (preg_match('/[0123456789]/', $password)){
-                        if (preg_match('/[A-Z]/', $password)){
                             return true;
-                        } else {
-                            $this->$errorMessage = "Password is invalid: You have to include at least one uppercase letter.";
-                        }
                     }else {
                         $this->$errorMessage = "Password is invalid: You have to include at least one number.";
                     }

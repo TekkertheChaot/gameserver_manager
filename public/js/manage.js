@@ -23,6 +23,19 @@
         fetchSiteIntoElement(popupModalID, popupID, 'api/management/users/deleteDialog');
     }
 
+    function openAddGroupDialog(event) {
+        openDialog('Add a group');
+        fetchSiteIntoElement(popupModalID, popupID, 'api/management/groups/addDialog');
+    }
+    function openEditGroupDialog(event) {
+        openDialog('Edit a group');
+        fetchSiteIntoElement(popupModalID, popupID, 'api/management/groups/editDialog');
+    }
+    function openDeleteGroupDialog(event) {
+        openDialog('Delete a group');
+        fetchSiteIntoElement(popupModalID, popupID, 'api/management/groups/deleteDialog');
+    }
+
     function openDialog(header) {
         document.getElementById('popupDialogHeader').innerHTML = header;
         activateModal(siteModalID);
@@ -109,7 +122,6 @@
             setTimeout(function() {
                 fadeOutElement(body);
                 data.text().then(function(text) {
-                    console.log(text);
                     if(expectJsonResponse){
                         var response = JSON.parse(text);
                         text = response.message;
@@ -139,7 +151,6 @@
     }
 
 function collapseCollapsible(event) {
-    console.log('collapsing');
     event.originalTarget.classList.toggle('active');
     var content = event.originalTarget.nextElementSibling;
     content.classList.toggle('closedCollapsible');
@@ -178,7 +189,6 @@ function isAddUserDataValid(){
 
 function onClickGetStatus(event){
     intervall = window.setInterval(function(){
-        console.log("I call for server Status on ServerID "+lastClickedServer);
         fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', '<pre>', '</pre>');;
     }, 20000);
     fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', '<pre>', '</pre>');
@@ -257,6 +267,31 @@ function onClickSubmitDeleteUser(event){
     makeAjaxCall('popupModal', 'popupDialog', 'api/management/users/action/delete', json, true);
 }
 
+function onClickSubmitAddGroup(event){
+        var currentUsername = getUsername();
+        var groupname = document.getElementById('group_name').value;
+        var json = JSON.stringify({loggedUsername: currentUsername, group_name: groupname});
+        makeAjaxCall('popupModal', 'popupDialog', 'api/management/groups/action/add', json, true);
+}
+
+function onClickSubmitEditGroup(event){
+        var currentUsername = getUsername();
+        var selector = document.getElementById('group_id_selector');
+        var editGroup_id = selector.options[selector.selectedIndex].value;
+        var editGroupname = document.getElementById('group_name').value;
+        var json = JSON.stringify({loggedUsername: currentUsername, group_name: editGroupname, group_id: editGroup_id});
+        makeAjaxCall('popupModal', 'popupDialog', 'api/management/groups/action/edit', json, true);
+}
+
+function onClickSubmitDeleteGroup(event){
+    var currentUsername = getUsername();
+    var selector = document.getElementById('group_id_selector');
+    var deleteGroup_id = selector.options[selector.selectedIndex].value;
+    var json = JSON.stringify({loggedUsername: currentUsername, group_id: deleteGroup_id});
+    makeAjaxCall('popupModal', 'popupDialog', 'api/management/groups/action/delete', json, true);
+}
+
+
 function passwordCaptchaValid(){
     var valPass1 = document.getElementById('password').value;
     var valPass2 = document.getElementById('password-confirm').value;
@@ -264,4 +299,14 @@ function passwordCaptchaValid(){
         return (valPass1 == valPass2);
     } 
     return false;
+}
+
+function onClickSubmitAddUserToGroup(event){
+    var currentUsername = getUsername();
+    var groupSelector = document.getElementById('group_id_selector');
+    var group_id = groupSelector.options[selector.selectedIndex].value;
+    var userSelector = document.getElementById('user_id_selector');
+    var user_id = userSelector.options[selector.selectedIndex].value;
+    var json = JSON.stringify({loggedUsername: currentUsername, user_id: user_id, group_id: group_id});
+    makeAjaxCall('popupModal', 'popupDialog', 'api/management/groups/action/addUser', json, true);
 }

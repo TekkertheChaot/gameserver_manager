@@ -8,16 +8,6 @@ use Illuminate\Support\Facades\Auth;
 class ManagementController extends Controller
 
 {
-    protected $user;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -31,6 +21,31 @@ class ManagementController extends Controller
         } else {
             return view('management');
         }
+    }
+
+    public function getUsersPage(Request $request)
+    {
+        return \View::make('management/users')->render();
+    }
+    public function getServersPage(Request $request)
+    {
+        return \View::make('management/servers')->render();
+    }
+    public function getGamesPage(Request $request)
+    {
+        return \View::make('management/games')->render();
+    }
+    public function getHostsPage(Request $request)
+    {
+        return \View::make('management/hosts')->render();
+    }
+    public function getCredsPage(Request $request)
+    {
+        return \View::make('management/creds')->render();
+    }
+    public function getPrivsPage(Request $request)
+    {
+        return \View::make('management/privileges')->render();
     }
 
     protected function isUserAllowedToVisitPage(){

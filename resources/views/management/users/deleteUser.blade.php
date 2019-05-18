@@ -17,8 +17,8 @@ $users = \App\User::all();
 
 <div id="submitError"></div>
 
-
-<button id="complete" class="button" onClick="onClickSubmitDeleteUser(event)">submit</button>
-
+<div class="float-right">
+<button id="complete" class="button" onClick="onClickSubmitDeleteUser(event)">Delete user</button>
+</div>
 <script>
 </script>

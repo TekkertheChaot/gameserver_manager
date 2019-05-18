@@ -43,8 +43,8 @@ $users = \App\User::all();
 </div>
 <div id="submitError"></div>
 
-
-<button id="complete" class="button" onClick="onClickSubmitAddUser(event)">submit</button>
+<div class="float-right">
+<button id="complete" class="button" onClick="onClickSubmitAddUser(event)">Create User</button></div>
 
 <script>
 </script>

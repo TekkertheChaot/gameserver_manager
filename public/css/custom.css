@@ -153,6 +153,18 @@ pre {
 
 }
 
+button{
+    transition: background-color .2s ease-out;
+    border: solid;
+    border-width: 2px;
+    border-color: gray;
+    border-radius: .3rem;
+}
+button:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.2);
+}
+
 .icon-disabled {
     filter: grayscale(100%);
 }

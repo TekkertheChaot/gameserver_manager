@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 require_once('./../app/SSH/SSHComunicator.php');
 require_once('./../app/Privileges/PrivilegeProvider.php');
 
-class AjaxController extends Controller
+class ServerController extends Controller
 {
     public function testcall(Request $request)
     {

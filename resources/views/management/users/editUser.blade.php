@@ -6,14 +6,13 @@ $users = \App\User::all();
 <style>
 </style>
 <div class="form-group row">
-    <label for="user_id" class="col-md-4 col-form-label text-md-right">Choose a User to edit:</label>
-    <div class="col-md-6">
+    <label for="user_id" class="col-form-label">Choose a User to edit:
         <select name="user_id" id="user_id_selector" onChange="">
             @foreach($users as $user)
             <option value="{{$user->user_id}}">{{$user->username}}</option>
             @endforeach
         </select>
-    </div>
+    </label>
 </div>
 
 
@@ -52,8 +51,8 @@ $users = \App\User::all();
 </div>
 <div id="submitError"></div>
 
-
-<button id="complete" class="button" onClick="onClickSubmitEditUser(event)">submit</button>
-
+<div class="float-right">
+<button id="complete" class="button" onClick="onClickSubmitEditUser(event)">Edit user</button>
+</div>
 <script>
 </script>
