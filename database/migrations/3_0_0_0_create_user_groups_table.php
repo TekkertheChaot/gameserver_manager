@@ -15,6 +15,7 @@ class CreateUserGroupsTable extends Migration
     {
         Schema::create('user_group', function (Blueprint $table) {
             $table->engine = 'InnoDB';
+            $table->increments('user_group_id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->integer('group_id')->unsigned();

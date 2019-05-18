@@ -8,4 +8,5 @@ class User_Group extends Model
 {
     public $timestamps = false;
     protected $table = 'user_group';
+    protected $primaryKey = 'user_group_id';
 }

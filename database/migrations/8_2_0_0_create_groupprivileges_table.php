@@ -15,6 +15,7 @@ class CreateGroupPrivilegesTable extends Migration
     {
         Schema::create('group_privileges', function (Blueprint $table) {
             $table->engine = 'InnoDB';
+            $table->increments('privilege_id');
             $table->Integer('group_id')->unsigned();
             $table->foreign('group_id')->references('group_id')->on('groups')->onDelete('cascade');
             $table->Integer('server_id')->unsigned();

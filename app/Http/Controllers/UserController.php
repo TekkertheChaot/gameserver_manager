@@ -46,7 +46,7 @@ class UserController extends Controller
             } else {
                 $this->$errorMessage = "Unexpected Condition: malformed request";
             }
-            $result = array('ok' => false, 'message' => $this->$errorMessage);
+            $result = array('ok' => false, 'message' => 'User could not be created: '.$this->$errorMessage);
             return json_encode($result);
         } else {
             return "Call not authorized";
@@ -62,7 +62,7 @@ class UserController extends Controller
             if($username != null && $email != null && $password != null){
                 if($this->isEditUserVaild($request)){
                     $user_id = $request->request->get('user_id');
-                    $oldUser = \App\User::where('user_id', $user_id)->get()[0];
+                    $oldUser = \App\User::where('user_id', $user_id)->first();
                     $oldUser->username = $request->request->get('username');
                     $oldUser->email = $request->request->get('email');
                     $oldUser->password = Hash::make($request->request->get('password'));
@@ -73,7 +73,7 @@ class UserController extends Controller
             } else {
                 $this->$errorMessage = "Unexpected Condition: malformed request";
             }
-            $result = array('ok' => false, 'message' => $this->$errorMessage);
+            $result = array('ok' => false, 'message' => 'User could not be edited: '.$this->$errorMessage);
             return json_encode($result);
         } else {
             return "Call not authorized";
@@ -89,7 +89,7 @@ class UserController extends Controller
                 return json_encode($result);
                 
             } else {
-                $result = array('ok' => false, 'message' => $this->$errorMessage);
+                $result = array('ok' => false, 'message' => 'User could not be deleted: '.$this->$errorMessage);
                 return json_encode($result);
             }
         } else {
@@ -231,7 +231,7 @@ class UserController extends Controller
 
     private function isCallAuthorized(Request $request){
         $username = $request->request->get('loggedUsername');
-        $user = \App\User::where('username', $username)->get()[0];
+        $user = \App\User::where('username', $username)->first();
         return ($username != null && $user != null);
     }
 }

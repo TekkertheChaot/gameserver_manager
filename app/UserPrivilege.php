@@ -8,4 +8,5 @@ class UserPrivilege extends Model
 {
     //
     public $timestamps = false;
+    protected $primaryKey = 'privilege_id';
 }

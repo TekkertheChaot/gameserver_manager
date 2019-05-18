@@ -153,6 +153,17 @@ pre {
 
 }
 
+.password-field{
+    color: transparent;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: text-shadow .2s ease-in-out, color .2s ease-in-out;
+}
+
+.password-field:hover{
+    color: black;
+    text-shadow: 0 0 0 transparent;
+}
+
 button{
     transition: background-color .2s ease-out;
     border: solid;
@@ -185,6 +196,7 @@ button:hover {
 
 #cardboard {
     margin-bottom: 0px;
+    box-shadow: 0px 0px 15px grey;
 }
 
 #cardboard-container {
@@ -198,6 +210,10 @@ button:hover {
 
 #sbcard {
     margin-bottom: 0px;
+}
+
+#sb {
+    box-shadow: 0px 0px 15px grey;
 }
 
 #btn-addCard {
@@ -297,6 +313,10 @@ button:hover {
 .sidebar-card-entry:active {
     background-color: rgba(0, 0, 0, .5);
     cursor: pointer;
+}
+
+.card-shadow {
+    box-shadow: 0 0 15px gray;
 }
 
 .sidebar-card-entry {

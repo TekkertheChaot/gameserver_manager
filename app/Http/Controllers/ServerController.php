@@ -18,7 +18,7 @@ class ServerController extends Controller
     {
         $username = $request->request->get('loggedUsername');
         if($this->isCallAuthorized($request)){
-            $user = \App\User::where('username', $username)->get()[0];
+            $user = \App\User::where('username', $username)->first();
             $privileges = \PrivilegeProvider::getEffectivePrivilegesForUser($user->user_id);
             $privilegesForServer = \PrivilegeProvider::getPrivilegesForServerID($privileges, $id);
             return \View::make('home/serverInfo', ['id' => $id, 'privileges' => $privilegesForServer, 'pt' => $privileges])->render();
@@ -33,7 +33,7 @@ class ServerController extends Controller
     public function getServerStatus(String $serverId, Request $request){
         $username = $request->request->get('loggedUsername');
         if($this->isCallAuthorized($request)){
-            $user = \App\User::where('username', $username)->get()[0];
+            $user = \App\User::where('username', $username)->first();
             $privileges = \PrivilegeProvider::getEffectivePrivilegesForUser($user->user_id);
             $privilegesForServer = \PrivilegeProvider::getPrivilegesForServerID($privileges, $serverId);
             if($privilegesForServer['lgsm_status'] != 0){

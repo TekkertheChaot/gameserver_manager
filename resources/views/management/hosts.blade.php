@@ -2,33 +2,26 @@
 $hosts = \App\LGSMHost::all();
 ?>
 
+<div class="card">
+    <div class="card-header">LGSM Hosts</div>
+    <div class="card-header">
+        <button id="addUser" class="button" onClick="openAddHostDialog(event)">Add Host</button>
+        <button id="editUser" class="button" onClick="openEditHostDialog(event)">Edit Host</button>
+        <button id="deleteUser" class="button" onClick="openDeleteHostDialog(event)">Delete Host</button>
+    </div>
+    <div class="card-body">
 
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-<table>
-    <tr>
-        <th>Host ID</th>
-        <th>IP Adress</th>
-    </tr>
-    <?php foreach($hosts as $host): ?>
-    <tr>
-        <td>{{$host->host_id}}</td>
-        <td>{{$host->ip_adress}}</td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+        <table>
+            <tr class="header-row">
+                <th>Nr. #</th>
+                <th>IP Adress</th>
+            </tr>
+            @foreach($hosts as $host)
+            <tr>
+                <td>{{$host->host_id}}</td>
+                <td>{{$host->ip_adress}}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+</div>

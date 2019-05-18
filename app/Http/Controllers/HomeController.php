@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {      
-        $currentUser = \App\User::where('username', \Auth::user()->username)->get()[0];
+        $currentUser = \App\User::where('username', \Auth::user()->username)->first();
         $effectivePerms = \PrivilegeProvider::getEffectivePrivilegesForUser($currentUser->user_id);
 
         // give view the variables

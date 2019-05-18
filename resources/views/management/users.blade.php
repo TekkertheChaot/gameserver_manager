@@ -28,7 +28,7 @@ $users_groups = \App\User_Group::all();
         @endif
         <table>
             <tr class="header-row">
-                <th>User ID</th>
+                <th>Nr. #</th>
                 <th>Username</th>
                 <th>E-Mail</th>
             </tr>
@@ -49,6 +49,8 @@ $users_groups = \App\User_Group::all();
         <button id="addGroup" class="button" onClick="openAddGroupDialog(event)">Add Group</button>
         <button id="editGroup" class="button" onClick="openEditGroupDialog(event)">Edit Group</button>
         <button id="deleteGroup" class="button" onClick="openDeleteGroupDialog(event)">Delete Group</button>
+        <button id="deleteGroup" class="button" onClick="openAddUserToGroupDialog(event)">Add user to Group</button>
+        <button id="deleteGroup" class="button" onClick="openDeleteUserFromGroupDialog(event)">Remove user from Group</button>
     </div>
     <div class="card-body">
         <div class="card floating-card">

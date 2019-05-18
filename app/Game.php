@@ -8,4 +8,5 @@ class Game extends Model
 {
     //
     public $timestamps = false;
+    protected $primaryKey = 'game_id';
 }

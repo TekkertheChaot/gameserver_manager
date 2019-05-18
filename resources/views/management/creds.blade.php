@@ -3,36 +3,33 @@ $creds = \App\ServerCredentials::all();
 ?>
 
 
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-<table>
-    <tr>
-        <th>Credential ID</th>
-        <th>For Host ID</th>
-        <th>Username</th>
-        <th>Password</th>
-    </tr>
-    <?php foreach($creds as $cred): ?>
-    <tr>
-        <td>{{$cred->credential_id}}</td>
-        <td>{{$cred->host_id}}</td>
-        <td>{{$cred->user}}</td>
-        <td>{{$cred->password}}</td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+<div class="card">
+    <div class="card-header">Login Credentials</div>
+    <div class="card-header">
+        <button id="addUser" class="button" onClick="openAddCredDialog(event)">Add Credentials</button>
+        <button id="editUser" class="button" onClick="openEditCredDialog(event)">Edit Credentials</button>
+        <button id="deleteUser" class="button" onClick="openDeleteCredDialog(event)">Delete Credentials</button>
+    </div>
+    <div class="card-body">
+
+        <table>
+            <tr>
+                <th>Nr. #</th>
+                <th>For Host</th>
+                <th>Username</th>
+                <th>Password</th>
+            </tr>
+            @foreach($creds as $cred)
+            <tr>
+                <td>{{$cred->credential_id}}</td>
+                <td>{{$cred->host_id}} ({{\App\LGSMHost::where('host_id', $cred->host_id)->first()->ip_adress}})</td>
+                <td class="password-field">{{$cred->user}}</td>
+                <td class="password-field">{{$cred->password}}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+
+</div>

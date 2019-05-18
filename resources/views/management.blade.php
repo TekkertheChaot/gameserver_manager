@@ -34,8 +34,7 @@
 </div>
 <div id="sb" class="sidebar">
     <div id="sbcard" class="card">
-        <div id="sbcardheader" class="card-header sidebar-card-header">
-            Sidebar</div>
+        <div id="sbcardheader" class="card-header sidebar-card-header">Categories</div>
         <div id="sbcardbody" class="sidebar-card-body">
             <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'users')">Users & Groups</div>
             <div class="sidebar-card-entry" onClick="onCLickManageMenuItem(event,'servers')">Servers</div>
@@ -64,7 +63,7 @@
                     </div>
 
                 </div>
-                <div id="cardboard-header" class="card-header">Dashboard</div>
+                <div id="cardboard-header" class="card-header">Management</div>
                 <div id="cardboard-body" class="card-body">
 
                 </div>

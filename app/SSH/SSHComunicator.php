@@ -20,6 +20,7 @@ class SSHComunicator{
         $credentials = \App\ServerCredentials::where('credential_id', $server->credential_id)->get()[0];
         $ssh = \SSHComunicator::getSSHSession($credentials->user, $credentials->password, $host->ip_adress);
         $toExecute = './'.$gamelabel.' '.$command;
+        $ssh->setTimeout(25);
         $response = $ssh->exec($toExecute);
         \SSHComunicator::removeColorCoding($response);
         return $response;

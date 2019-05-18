@@ -15,6 +15,7 @@ class CreateUserPrivilegesTable extends Migration
     {
         Schema::create('user_privileges', function (Blueprint $table) {
             $table->engine = 'InnoDB';
+            $table->increments('privilege_id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->Integer('server_id')->unsigned();
