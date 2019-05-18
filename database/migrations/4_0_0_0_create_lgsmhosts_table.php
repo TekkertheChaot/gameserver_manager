@@ -13,7 +13,7 @@ class CreateLgsmhostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('LGSM_Hosts', function (Blueprint $table) {
+        Schema::create('lgsm_hosts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('host_id');
             $table->string('ip_adress');
@@ -28,6 +28,6 @@ class CreateLgsmhostsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('LGSM_Hosts');
+        Schema::dropIfExists('lgsm_hosts');
     }
 }

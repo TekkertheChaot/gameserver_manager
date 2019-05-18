@@ -13,7 +13,7 @@ class CreateUserPrivilegesTable extends Migration
      */
     public function up()
     {
-        Schema::create('User_Privileges', function (Blueprint $table) {
+        Schema::create('user_privileges', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
@@ -37,6 +37,6 @@ class CreateUserPrivilegesTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('User_Privileges');
+        Schema::dropIfExists('user_privileges');
     }
 }

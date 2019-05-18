@@ -13,13 +13,13 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Groups', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('group_id');
             $table->string('group_name')->unique();
         });
 
-        DB::table('Groups')->insert(
+        DB::table('groups')->insert(
             array(
                 'group_id' => 1,
                 'group_name' => 'admins'
@@ -35,6 +35,6 @@ class CreateGroupsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('Groups');
+        Schema::dropIfExists('groups');
     }
 }

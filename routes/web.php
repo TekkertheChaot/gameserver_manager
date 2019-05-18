@@ -21,19 +21,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
-    $links = \App\Link::all();
-
-    return view('welcome', ['links' => $links]);
+    return view('welcome');
 });
 Route::get('/about', function () {
-    $links = \App\Link::all();
-
     return view('about');
 });
 Route::get('/pictest', function () {
-    $links = \App\Link::all();
-
-    return view('pictureTestPage', ['links' => $links]);
+    return view('pictureTestPage');
 });
 Route::get('/collapseTest', function () {
 

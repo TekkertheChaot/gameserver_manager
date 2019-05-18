@@ -13,7 +13,7 @@ class CreateGamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Games', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('game_id');
             $table->string('game_name');
@@ -30,6 +30,6 @@ class CreateGamesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('Games');
+        Schema::dropIfExists('games');
     }
 }

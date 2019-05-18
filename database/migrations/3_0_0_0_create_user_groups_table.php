@@ -13,7 +13,7 @@ class CreateUserGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('User_Group', function (Blueprint $table) {
+        Schema::create('user_group', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
@@ -21,7 +21,7 @@ class CreateUserGroupsTable extends Migration
             $table->foreign('group_id')->references('group_id')->on('groups')->onDelete('cascade');
         });
 
-        DB::table('User_Group')->insert(
+        DB::table('user_group')->insert(
             array(
                 'user_id' => 1,
                 'group_id' => 1
@@ -37,6 +37,6 @@ class CreateUserGroupsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('User_Group');
+        Schema::dropIfExists('user_group');
     }
 }

@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('Users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('user_id');
             $table->string('email')->unique();
@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('Users')->insert(
+        DB::table('users')->insert(
             array(
                 'email' => 'admin@local.laravel',
                 'username' => 'Administrator',
@@ -42,6 +42,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('Users');
+        Schema::dropIfExists('users');
     }
 }
