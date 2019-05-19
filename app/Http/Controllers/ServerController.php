@@ -37,7 +37,26 @@ class ServerController extends Controller
             $privileges = \PrivilegeProvider::getEffectivePrivilegesForUser($user->user_id);
             $privilegesForServer = \PrivilegeProvider::getPrivilegesForServerID($privileges, $serverId);
             if($privilegesForServer['lgsm_status'] != 0){
-                return $this->runSSHCmd($serverId, 'details');
+                $response = $this->runSSHCmd($serverId, 'details');
+                $this->removeColorCoding($response);
+                $this->removeTPUT($response);
+                $status = $this->getStatus($response);
+                $maxPlayer = $this->getMaxPlayers($response);
+                $internalIP= $this->getInternalIP($response);
+                $serverIP= $this->getServerIP($response);
+                $Tickrate= $this->getTickRate($response);
+                $defaultMap= $this->getDefaultMap($response);
+                $internalServerName= $this->getInternalServerName($response);
+                return \View::make('home/serverStatus', [
+                    'status' => $status, 
+                    'maxPlayer' => $maxPlayer, 
+                    'internalIP' => $internalIP,
+                    'serverIP' => $serverIP,
+                    'Tickrate' => $Tickrate,
+                    'defaultMap' => $defaultMap,
+                    'internalServerName' => $internalServerName,
+                    ])->render();
+                 
             }
         }else{
             return 'null';
@@ -77,6 +96,60 @@ class ServerController extends Controller
         return ($username != null && \App\User::where('username', $username)->get()[0] != null);
     }
     
+    private function removeColorCoding(&$response){
+        $startPos;
+        $endPos;
+        while(($startPos = strpos($response, '[')) != false){
+            $endPos = strpos($response, 'm', $startPos);
+            $response = substr_replace($response, '', $startPos, $endPos-$startPos+1);
+        }
+		$response = str_replace("\e", '', $response);
+    }
 
+    private function removeTPUT(&$response){
+        $startPos;
+        $endPos;
+        while(($startPos = strpos($response, 'tput')) != false){
+            $endPos = strpos($response, 'specified', $startPos-1);
+            $response = substr_replace($response, '', $startPos, ($endPos + strlen('specified'))-$startPos+1);
+        }
+    }
+	
+	private function getStatus(&$response){
+		$startpos = strpos($response  , 'Status:');
+		$endpos = strpos($response, PHP_EOL, $startpos);
+		return substr($response, $startpos + strlen('Status:'), $endpos-$startpos);
+    }
+    
+    private function getInternalServerName(&$response){
+		$startpos = strpos($response  , 'Status:');
+		$endpos = strpos($response, PHP_EOL, $startpos);
+		return substr($response, $startpos + strlen('Status:'), $endpos-$startpos);
+    }
+    private function getMaxPlayers(&$response){
+		$startpos = strpos($response  , 'Maxplayers:');
+		$endpos = strpos($response, PHP_EOL, $startpos);
+		return substr($response, $startpos + strlen('Maxplayers:'), $endpos-$startpos);
+    }
+    private function getServerIP(&$response){
+		$startpos = strpos($response  , 'Server IP:');
+		$endpos = strpos($response, PHP_EOL, $startpos);
+		return substr($response, $startpos + strlen('Server IP:'), $endpos-$startpos);
+    }
+    private function getInternalIP(&$response){
+		$startpos = strpos($response  , 'Internet IP:');
+		$endpos = strpos($response, PHP_EOL, $startpos);
+		return substr($response, $startpos + strlen('Internet IP:'), $endpos-$startpos);
+    }
+    private function getDefaultMap(&$response){
+		$startpos = strpos($response  , 'Default Map:');
+		$endpos = strpos($response, PHP_EOL, $startpos);
+		return substr($response, $startpos + strlen('Default Map:'), $endpos-$startpos);
+    }
+    private function getTickRate(&$response){
+		$startpos = strpos($response  , 'Tick rate:');
+		$endpos = strpos($response, PHP_EOL, $startpos);
+		return substr($response, $startpos + strlen('Tick rate:'), $endpos-$startpos);
+	}
 
 }
