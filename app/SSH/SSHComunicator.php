@@ -22,6 +22,7 @@ class SSHComunicator{
         $toExecute = './'.$gamelabel.' '.$command;
         $response = $ssh->exec($toExecute);
         \SSHComunicator::removeColorCoding($response);
+        \SSHComunicator::removeTPUT($response);
         return $response;
     }
 
@@ -31,6 +32,15 @@ class SSHComunicator{
         while(($startPos = strpos($response, '[')) != false){
             $endPos = strpos($response, 'm', $startPos);
             $response = substr_replace($response, '', $startPos, $endPos-$startPos+1);
+        }
+    }
+
+    private static function removeTPUT(&$response){
+        $startPos;
+        $endPos;
+        while(($startPos = strpos($response, 'tput')) != false){
+            $endPos = strpos($response, 'specified', $startPos);
+            $response = substr_replace($response, '', $startPos, ($endPos + strlen('specified'))-$startPos+1);
         }
     }
 }
