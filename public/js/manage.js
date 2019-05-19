@@ -183,12 +183,6 @@
         fetchSiteIntoElement('actions-modal', 'actions-body', 'api/dashboard/ssh/'+currentServerID+'/action/'+action, '<pre>', '</pre>');
     }
 
-    function fetchSiteIntoElement(modal, body, url, expectJsonResponse, startContentWrapper, endContentWrapper) {
-        var username = getUsername();
-        var json = JSON.stringify({loggedUsername: username});
-        makeAjaxCall(modal, body, url, json, expectJsonResponse, startContentWrapper, endContentWrapper);
-    }
-
     function fetchSiteIntoElement(modal, body, url, startContentWrapper, endContentWrapper) {
         var username = getUsername();
         var json = JSON.stringify({loggedUsername: username});
@@ -196,10 +190,11 @@
     }
 
     function makeAjaxCall(modal, body, url, json, expectJsonResponse){
-        makeAjaxCall(modal, body, url, json, null, null);
+        makeAjaxCall(modal, body, url, json, expectJsonResponse,null, null);
     }
 
     function makeAjaxCall(modal, body, url, json, expectJsonResponse, startContentWrapper, endContentWrapper) {
+        console.log('modal: '+modal+' body: '+body+' url: '+url+' json: '+json+' expectJsonResponse: '+expectJsonResponse+' startContentWrapper: '+ startContentWrapper+' endContentWrapper: '+endContentWrapper    );
         var useWrapping;
         if(startContentWrapper != null && endContentWrapper != null){
             useWrapping = true;
@@ -278,9 +273,9 @@ function getServerIDFromServerCard(event){
 
 function onClickGetStatus(event){
     intervall = window.setInterval(function(){
-        fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', false,'<pre>', '</pre>');;
+        fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status','<pre>', '</pre>');
     }, 20000);
-    fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', false ,'<pre>', '</pre>');
+    fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', '<pre>', '</pre>');
 }
 
 function onClickStartServer(){

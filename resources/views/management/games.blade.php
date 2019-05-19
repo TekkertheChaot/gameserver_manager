@@ -27,9 +27,9 @@ $games = \App\Game::all();
                 <td>{{$game->game_name}}</td>
                 <td>{{$game->game_label}}</td>
                 @if($game->support_rcon == 0)
-                <td>False</td>
+                <td><input type="checkbox" disabled></td>
                 @else
-                <td>True</td>
+                <td><input type="checkbox" checked disabled></td>
                 @endif
             </tr>
             @endforeach

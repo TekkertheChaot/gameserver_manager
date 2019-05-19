@@ -111,7 +111,7 @@ class GroupPrivilegesController extends Controller
                     if($this->isRuleFromExpectedID($group_id, $server_id, $priv_id)){
                         return true;
                     } else {
-                        $this->errorMessage = "There is already a rule present. Edit ir, or delete existing before adding the same one."; 
+                        $this->errorMessage = "There is already a rule present. Edit it, or delete existing before adding the same one."; 
                     }
                 } else {
                     $this->errorMessage = "There is no matching rule present and cannot edit it, but feel free to add it."; 
@@ -129,7 +129,7 @@ class GroupPrivilegesController extends Controller
                 if(!$this->isRulePresent($group_id, $server_id)){
                     return true;
                 } else {
-                    $this->errorMessage = "There is already a rule present. Edit ir, or delete existing before adding the same one."; 
+                    $this->errorMessage = "There is already a rule present. Edit it, or delete existing before adding the same one."; 
                 }
             } 
         } 
