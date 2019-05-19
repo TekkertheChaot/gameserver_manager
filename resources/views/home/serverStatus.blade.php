@@ -1,10 +1,3 @@
-<?php
-?>
-
-<style>
-</style>
-
-
 <table>
     <tr>
         <td>Status:</td>
@@ -16,15 +9,15 @@
     </tr>
     <tr>
         <td>Server IP:</td>
-        <td>{{$serverIP</td>
+        <td>{{$serverIP}}</td>
     </tr>
     <tr>
         <td>Internal IP:</td>
-        <td>{{internalIP}}</td>
+        <td>{{$internalIP}}</td>
     </tr>
     <tr>
         <td>Max Players:</td>
-        <td>{{$maxPlayer}})</td>
+        <td>{{$maxPlayer}}</td>
     </tr>
     <tr>
         <td>Default Map:</td>

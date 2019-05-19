@@ -118,38 +118,38 @@ class ServerController extends Controller
 	private function getStatus(&$response){
 		$startpos = strpos($response  , 'Status:');
 		$endpos = strpos($response, PHP_EOL, $startpos);
-		return substr($response, $startpos + strlen('Status:'), $endpos-$startpos);
+		return substr($response, $startpos + strlen('Status:'), $endpos-($startpos+strlen('Status:')));
     }
     
     private function getInternalServerName(&$response){
-		$startpos = strpos($response  , 'Status:');
+		$startpos = strpos($response  , 'Server name:');
 		$endpos = strpos($response, PHP_EOL, $startpos);
-		return substr($response, $startpos + strlen('Status:'), $endpos-$startpos);
+		return substr($response, $startpos + strlen('Server name:'), $endpos-($startpos+ strlen('Server name:')));
     }
     private function getMaxPlayers(&$response){
 		$startpos = strpos($response  , 'Maxplayers:');
 		$endpos = strpos($response, PHP_EOL, $startpos);
-		return substr($response, $startpos + strlen('Maxplayers:'), $endpos-$startpos);
+		return substr($response, $startpos + strlen('Maxplayers:'), $endpos-($startpos+ strlen('Maxplayers:')));
     }
     private function getServerIP(&$response){
 		$startpos = strpos($response  , 'Server IP:');
 		$endpos = strpos($response, PHP_EOL, $startpos);
-		return substr($response, $startpos + strlen('Server IP:'), $endpos-$startpos);
+		return substr($response, $startpos + strlen('Server IP:'), $endpos-($startpos+ strlen('Server IP:')));
     }
     private function getInternalIP(&$response){
 		$startpos = strpos($response  , 'Internet IP:');
 		$endpos = strpos($response, PHP_EOL, $startpos);
-		return substr($response, $startpos + strlen('Internet IP:'), $endpos-$startpos);
+		return substr($response, $startpos + strlen('Internet IP:'), $endpos-($startpos+ strlen('Internet IP:')));
     }
     private function getDefaultMap(&$response){
 		$startpos = strpos($response  , 'Default Map:');
 		$endpos = strpos($response, PHP_EOL, $startpos);
-		return substr($response, $startpos + strlen('Default Map:'), $endpos-$startpos);
+		return substr($response, $startpos + strlen('Default Map:'), $endpos-($startpos + strlen('Default Map:')));
     }
     private function getTickRate(&$response){
 		$startpos = strpos($response  , 'Tick rate:');
 		$endpos = strpos($response, PHP_EOL, $startpos);
-		return substr($response, $startpos + strlen('Tick rate:'), $endpos-$startpos);
+		return substr($response, $startpos + strlen('Tick rate:'), $endpos-($startpos+ strlen('Tick rate:')));
 	}
 
 }
