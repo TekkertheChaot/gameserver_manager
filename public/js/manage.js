@@ -183,10 +183,16 @@
         fetchSiteIntoElement('actions-modal', 'actions-body', 'api/dashboard/ssh/'+currentServerID+'/action/'+action, '<pre>', '</pre>');
     }
 
+    function fetchSiteIntoElement(modal, body, url, expectJsonResponse, startContentWrapper, endContentWrapper) {
+        var username = getUsername();
+        var json = JSON.stringify({loggedUsername: username});
+        makeAjaxCall(modal, body, url, json, expectJsonResponse, startContentWrapper, endContentWrapper);
+    }
+
     function fetchSiteIntoElement(modal, body, url, startContentWrapper, endContentWrapper) {
         var username = getUsername();
         var json = JSON.stringify({loggedUsername: username});
-        makeAjaxCall(modal, body, url, json, startContentWrapper, endContentWrapper);
+        makeAjaxCall(modal, body, url, json, false, startContentWrapper, endContentWrapper);
     }
 
     function makeAjaxCall(modal, body, url, json, expectJsonResponse){
@@ -272,9 +278,9 @@ function getServerIDFromServerCard(event){
 
 function onClickGetStatus(event){
     intervall = window.setInterval(function(){
-        fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', '<pre>', '</pre>');;
+        fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', false,'<pre>', '</pre>');;
     }, 20000);
-    fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', '<pre>', '</pre>');
+    fetchSiteIntoElement('status-modal', 'status-body', 'api/dashboard/ssh/'+currentServerID+'/status', false ,'<pre>', '</pre>');
 }
 
 function onClickStartServer(){
